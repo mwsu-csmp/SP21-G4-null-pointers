@@ -1,6 +1,6 @@
-package sampletest;
+package SampleTest;
 import org.junit.Test;
-import sample.User;
+import Sample.User;
 
 import java.time.LocalDate;
 import static org.junit.Assert.*;
