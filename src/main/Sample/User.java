@@ -14,6 +14,8 @@ public class User {
         special_days = new ArrayList<>();
     }
 
+    // TODO: Add ability to
+
     public  String getName() {
         return name;
     }
