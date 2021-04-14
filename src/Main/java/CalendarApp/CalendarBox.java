@@ -31,4 +31,5 @@ public class CalendarBox extends StackPane {
     }
     // TODO: Implement User parameter into CalendarBox for Special_Days
     // TODO: Add ability to pull calendar data from csv
+    // TODO: Look into "Tooltips" for seeing Special_Day previews
 }

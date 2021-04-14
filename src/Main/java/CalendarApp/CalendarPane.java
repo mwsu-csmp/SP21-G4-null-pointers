@@ -3,7 +3,7 @@ package CalendarApp;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 
@@ -18,6 +18,7 @@ public class CalendarPane extends BorderPane {
         datetext = new Label(CalendarBody.dateToString());
         nextmonth = new Button(">");
         previousmonth = new Button("<");
+
         HBox topSector = new HBox(previousmonth, datetext, nextmonth);
 
         // TODO: Implement User parameter into CalendarPane for Special_Days
@@ -32,14 +33,16 @@ public class CalendarPane extends BorderPane {
             datetext.setText(CalendarBody.dateToString());
         });
 
+        previousmonth.setTooltip(new Tooltip("Goes back a month"));
+        nextmonth.setTooltip(new Tooltip("Goes forward a month"));
 
-        previousmonth.alignmentProperty().setValue(Pos.TOP_LEFT);
-        datetext.alignmentProperty().setValue(Pos.TOP_CENTER);
-        nextmonth.alignmentProperty().setValue(Pos.TOP_RIGHT);
+        previousmonth.alignmentProperty().setValue(Pos.CENTER_LEFT);
+        datetext.alignmentProperty().setValue(Pos.CENTER);
+        nextmonth.alignmentProperty().setValue(Pos.CENTER_RIGHT);
 
         topSector.setAlignment(Pos.CENTER);
         topSector.setSpacing(100);
-        CalendarBody.setAlignment(Pos.CENTER);
+        CalendarBody.setAlignment(Pos.TOP_CENTER);
 
         setCenter(CalendarBody);
         setTop(topSector);

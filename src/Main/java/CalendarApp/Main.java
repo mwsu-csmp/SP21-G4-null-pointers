@@ -17,8 +17,9 @@ public class Main extends Application {
         final int month = LocalDate.now().getMonth().getValue();
         final int year = LocalDate.now().getYear();
 
-        CalendarPane calendarPane = new CalendarPane(month, year);
-        Scene scene = new Scene(calendarPane);
+        LoginPane loginPane = new LoginPane();
+
+        Scene scene = new Scene(loginPane);
         primaryStage.setScene(scene);
         primaryStage.show();
 
