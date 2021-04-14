@@ -13,6 +13,9 @@ public class Special_Day {
         this.description = description;
         this.title = title;
     }
+
+    // TODO: Create an overloaded constructor that deserializes a String into a Special_Day object
+
     public LocalDateTime getDatetime() {
         return dateTime;
     }

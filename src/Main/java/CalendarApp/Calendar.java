@@ -20,6 +20,8 @@ public class Calendar extends GridPane {
         populateCalendar(month, year);
     }
 
+    // TODO: Implement User parameter into Calendar for Special_Days
+
     /** Populates Calendar with Day boxes
      *
      * @param month current month being displayed

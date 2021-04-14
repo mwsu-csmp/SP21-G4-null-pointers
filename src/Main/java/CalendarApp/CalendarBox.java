@@ -29,5 +29,6 @@ public class CalendarBox extends StackPane {
         setAlignment(daynumber, Pos.TOP_LEFT);
         setMargin(daynumber, new Insets(4));
     }
+    // TODO: Implement User parameter into CalendarBox for Special_Days
     // TODO: Add ability to pull calendar data from csv
 }

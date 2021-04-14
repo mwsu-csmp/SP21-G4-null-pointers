@@ -14,7 +14,7 @@ public class User {
         special_days = new ArrayList<>();
     }
 
-    // TODO: Add ability to
+    // TODO: Add ability to Serialize special day into a string for output
 
     public  String getName() {
         return name;

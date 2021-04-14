@@ -20,6 +20,7 @@ public class CalendarPane extends BorderPane {
         previousmonth = new Button("<");
         HBox topSector = new HBox(previousmonth, datetext, nextmonth);
 
+        // TODO: Implement User parameter into CalendarPane for Special_Days
 
         nextmonth.setOnAction(event -> {
             CalendarBody.moveMonthForwards();
