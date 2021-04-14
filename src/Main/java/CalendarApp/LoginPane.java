@@ -19,15 +19,27 @@ public class LoginPane extends FlowPane {
 
 
     public LoginPane(){
-        setPadding(new Insets(11, 12, 13, 14));
+        setPadding(new Insets(20, 20, 200, 20));
         setHgap(5);
         setVgap(5);
         getChildren().addAll(new Label("Are you a first time user?"));
 
         Button y = new Button("Yes");
         Button n = new Button("No");
+        Label l = new Label("");
+        EventHandler<ActionEvent> event = e -> {
+            l.setText("   Please enter your name:   ");
+            getChildren().addAll(new Label("First Name:"), new TextField(), new Label("MI"));
+            TextField tfMi = new TextField();
+            tfMi.setPrefColumnCount(1);
+            getChildren().addAll(tfMi, new Label("Last Name:"), new TextField());
 
-        getChildren().addAll(y, n);
+        };
+        l.setTranslateX(10);
+        l.setTranslateY(-3);
+        y.setOnAction(event);
+        getChildren().addAll(y, n, l);
+
     }
 }
 
