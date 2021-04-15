@@ -11,7 +11,6 @@ import javafx.event.EventHandler;
 
 import javax.naming.Name;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 
@@ -46,34 +45,30 @@ public class LoginPane extends FlowPane  {
             getChildren().addAll(new Label("Please enter your first and last name:"));
             TextField tfMi = new TextField();
             tfMi.setPrefColumnCount(10);
-            getChildren().addAll(tfMi, a);
+            getChildren().addAll(tfMi);
             getChildren().addAll(new Label("Please enter your date of birth:"));
             DatePicker d = new DatePicker();
             getChildren().addAll(d, a1);
 
             a.setOnAction(new EventHandler<ActionEvent>() {
-                @Override public void handle(ActionEvent e) {
-                    Object full_name;
+                public void handle(ActionEvent e) {
+                    String full_name;
                     full_name = tfMi.getText();
-                    names.add((Name) full_name);
-
+                    LocalDate date1;
+                    date1 = d.getValue();
+                    User user = new User(full_name, date1);
                     //System.out.println(full_name);
-                }
-            });
-            a1.setOnAction(new EventHandler<ActionEvent>() {
-                @Override public void handle(ActionEvent e) {
-                    Object date;
-                    date = d.getValue();
-                    DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("M/d/yyyy");
-                    LocalDate date1 = LocalDate.parse((CharSequence) date, dateFormat);
-                    //names.add((Name) date1);
 
                 }
-
             });
-
-
         };
+        /**
+        static User getName() {
+            for (Name name : names) {
+                return (Name) name;
+            }
+         }
+         */
 
         l.setTranslateX(10);
         l.setTranslateY(-3);
