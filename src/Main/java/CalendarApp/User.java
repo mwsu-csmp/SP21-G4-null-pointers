@@ -1,11 +1,10 @@
 package CalendarApp;
 
-import javax.naming.Name;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class User extends LoginPane {
-    public String name;
+public class User {
+    private String name;
     private final LocalDate birthday;
     private final ArrayList<Special_Day> special_days;
 
@@ -14,23 +13,24 @@ public class User extends LoginPane {
         this.name = name;
         this.birthday = birthday;
         special_days = new ArrayList<>();
+        special_days.add(new Special_Day("My birthday!", birthday, null, birthday, null, true, "It's my birthday!", null, true));
     }
 
+    public void addSpecialDay(Special_Day special_day){
+        special_days.add(special_day);
+    }
 
+    public void removeSpecialDay(Special_Day special_day){
+        special_days.remove(special_day);
+    }
 
-
-    // TODO: Add ability to Serialize special day into a string for output
-
-    public  String getName() {
+    public String getName() {
         return name;
-    }
-
-    public LocalDate getBirthday() {
-        return birthday;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
+    // TODO: Add ability to Serialize special day into a string for output
 }
