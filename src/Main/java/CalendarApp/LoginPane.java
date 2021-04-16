@@ -19,15 +19,15 @@ public class LoginPane extends FlowPane  {
 
     // TODO: possibly user could pick from list of created users, or create a new one. That way less typing is needed.
 
-    static ArrayList<Name> names;
+    static ArrayList<String> names;
 
     static void nameDatabase() {
         names = new ArrayList<>();
-        names.add((Name) new User("Josiah", LocalDate.now()));
+        names.add(new User("Josiah", LocalDate.now()).getName());
 
 
     }
-
+    // TODO: Create more meaningful variable names
     public LoginPane(){
         setPadding(new Insets(20, 20, 200, 20));
         setHgap(5);
@@ -63,10 +63,10 @@ public class LoginPane extends FlowPane  {
             });
         };
         /**
-        static User getName() {
-            for (Name name : names) {
-                return (Name) name;
-            }
+         static User getName() {
+         for (Name name : names) {
+         return (Name) name;
+         }
          }
          */
 
