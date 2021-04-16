@@ -8,15 +8,17 @@ public class Calendar extends GridPane {
 
     private int month;
     private int year;
+    private User user;
 
     /** Creates a Calendar in a GridPane
      *
      * @param month current month being displayed
      * @param year current year being displayed
      */
-    public Calendar(int month, int year){
+    public Calendar(int month, int year, User user){
         this.month = month;
         this.year = year;
+        this.user = user;
         populateCalendar(month, year);
     }
 
@@ -48,7 +50,7 @@ public class Calendar extends GridPane {
 
         for (int i = 0; i < 6; i++)
             for (int j = 0; j < 7; j++){
-                add(new CalendarBox(currentday, month, year), j, i);
+                add(new CalendarBox(currentday, month, year, user), j, i);
                 if (currentday < monthdays[lastmonth] && !writingcurrentmonth){
                     currentday++;
                 }

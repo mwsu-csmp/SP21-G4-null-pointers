@@ -12,7 +12,7 @@ public class CalendarBox extends StackPane {
     int month;
     int year;
 
-    public CalendarBox(int day, int month, int year){
+    public CalendarBox(int day, int month, int year, User user){
         this.day = day;
         this.month = month;
         this.year = year;
