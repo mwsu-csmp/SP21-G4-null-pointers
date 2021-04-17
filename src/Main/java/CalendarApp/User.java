@@ -3,9 +3,9 @@ package CalendarApp;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class User {
+public class User extends LoginPane{
     private String name;
-    private final LocalDate birthday;
+    private LocalDate birthday;
     private final ArrayList<Special_Day> special_days;
 
 
@@ -30,6 +30,12 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+    public LocalDate getBirthday() {
+        return birthday;
+    }
+    public void setBirthday(LocalDate birhtday) {
+        this.birthday = birhtday;
     }
 
     // TODO: Add ability to Serialize special day into a string for output
