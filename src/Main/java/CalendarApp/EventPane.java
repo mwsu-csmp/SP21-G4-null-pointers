@@ -147,10 +147,10 @@ public class EventPane extends GridPane {
         scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
         add(scenetitle, 0, 0, 2, 1);
 
-        setAlignment(Pos.CENTER);
+        setAlignment(Pos.BASELINE_RIGHT);
         setHgap(10);
         setVgap(10);
-        setPadding(new Insets(25, 25, 25, 25));
+        setPadding(new Insets(25));
 
         Label eventTitleLabel = new Label("Title:");
         add(eventTitleLabel, 0, 1);

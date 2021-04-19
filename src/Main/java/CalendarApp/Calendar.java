@@ -2,6 +2,8 @@ package CalendarApp;
 
 import javafx.scene.layout.GridPane;
 
+import java.time.LocalDate;
+
 import static java.lang.Math.floor;
 
 public class Calendar extends GridPane {
@@ -32,42 +34,35 @@ public class Calendar extends GridPane {
         getChildren().clear();
 
         int firstday = startingDay(month, year);
-        int lastmonth = month - 1;
-        int currentday;
-        boolean writingcurrentmonth = false;
+        int startingmonthnumber;
+        int startingyearnumber = year;
+        int startingdaynumber;
 
-        // February has 29 days if leap year
-        if (isLeapYear(year)) monthdays[2] = 29;
+        // Determines last month
+        if (month == 1) {
+            startingmonthnumber = 12;
+            startingyearnumber = year - 1;
+        }
+        else
+            startingmonthnumber = month - 1;
 
-        // Determines first day to print
+        // Determines first and month day to print
         if (firstday == 0) {
-            writingcurrentmonth = true;
-            currentday = 1;
-        } else
-            currentday = monthdays[month-1] - firstday + 1;
+            startingdaynumber = 1;
+            startingmonthnumber = month;
+        }
+        else
+            startingdaynumber = monthdays[month-1] - firstday + 1;
+
+        LocalDate currentday = LocalDate.of(startingyearnumber, startingmonthnumber, startingdaynumber);
 
         for (int i = 0; i < 6; i++)
             for (int j = 0; j < 7; j++){
-                if (writingcurrentmonth)
-                    add(new CalendarBox(currentday, month, year, user), j, i);
-                else
-                    add(new CalendarBox(currentday, month-1, year, user), j, i);
-                if (currentday < monthdays[lastmonth] && !writingcurrentmonth){
-                    currentday++;
+                    add(new CalendarBox(currentday, user), j, i);
+                    currentday = currentday.plusDays(1);
                 }
-                else if (currentday >= monthdays[lastmonth] && !writingcurrentmonth){
-                    currentday = 0;
-                    writingcurrentmonth = true;
-                }
-                if (currentday < monthdays[month] && writingcurrentmonth){
-                    currentday++;
-                }
-                else if (currentday >= monthdays[month] && writingcurrentmonth){
-                    currentday = 1;
-                    writingcurrentmonth = false;
-                }
-            }
-    }
+        }
+
     public void populateCalendar(){
         populateCalendar(month, year);
     }

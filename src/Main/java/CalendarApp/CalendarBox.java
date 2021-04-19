@@ -14,9 +14,9 @@ import java.time.LocalDate;
 
 public class CalendarBox extends StackPane {
 
-    public CalendarBox(int day, int month, int year, User user){
+    public CalendarBox(LocalDate currentday, User user){
 
-        LocalDate currentday = LocalDate.of(year, month, day);
+        int day = currentday.getDayOfMonth();
 
         // Outline and number of box
         Rectangle outline = new Rectangle();
