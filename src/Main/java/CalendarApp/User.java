@@ -1,5 +1,14 @@
 package CalendarApp;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -49,5 +58,5 @@ public class User {
         return special_days;
     }
 
-    // TODO: Add ability to Serialize special day into a string for output
+        // TODO: Add ability to Serialize special day into a string for output
 }

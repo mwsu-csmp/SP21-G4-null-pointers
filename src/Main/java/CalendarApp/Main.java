@@ -21,7 +21,7 @@ public class Main extends Application {
         LoginPane loginPane = new LoginPane();
         CalendarPane calendarPane = new CalendarPane(month, year, user);
 
-        Scene scene = new Scene(calendarPane);
+        Scene scene = new Scene(loginPane);
         primaryStage.setScene(scene);
         primaryStage.show();
 
