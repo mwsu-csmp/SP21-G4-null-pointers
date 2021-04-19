@@ -18,11 +18,11 @@ public class Special_Day {
     private String location;
     private boolean isprivate;
 
-    public Special_Day(String title, LocalDate startdate, LocalTime starttime, LocalDate enddate, LocalTime endtime, boolean isallday, String description, String location, boolean isprivate) {
+    public Special_Day(String title, LocalDate startdate, LocalTime starttime, LocalDate enddate, LocalTime endtime, boolean isallday, String description, String location, boolean isprivate) throws IllegalArgumentException {
         this.title = title;
         this.startdate = startdate;
         this.enddate = enddate;
-        if (isallday){
+        if (!isallday){
             this.starttime = starttime;
             this.endtime = endtime;
         } else {
@@ -34,6 +34,10 @@ public class Special_Day {
         this.location = location;
         this.isprivate = isprivate;
 
+        if (startdate == null || enddate == null)
+            throw new IllegalArgumentException("One or more dates is not formatted properly");
+        if (startdate.isAfter(enddate))
+            throw new IllegalArgumentException("Start date is after end date");
     }
 
     public Special_Day(String csvDesc) throws IllegalArgumentException{
@@ -120,7 +124,33 @@ public class Special_Day {
                 returnlist.get(7) + "\",\"" +
                 returnlist.get(8) + "\"";
     }
-
+    public LocalDate getStartdate() {
+        return startdate;
+    }
+    public LocalDate getEnddate() {
+        return enddate;
+    }
+    public LocalTime getStarttime() {
+        return starttime;
+    }
+    public LocalTime getEndtime() {
+        return endtime;
+    }
+    public String getTitle() {
+        return title;
+    }
+    public String getDescription() {
+        return description;
+    }
+    public String getLocation() {
+        return location;
+    }
+    public boolean isAllDay() {
+        return isallday;
+    }
+    public boolean isPrivate() {
+        return isprivate;
+    }
 
 
 }

@@ -8,7 +8,7 @@ public class Calendar extends GridPane {
 
     private int month;
     private int year;
-    private User user;
+    private final User user;
 
     /** Creates a Calendar in a GridPane
      *
@@ -21,8 +21,6 @@ public class Calendar extends GridPane {
         this.user = user;
         populateCalendar(month, year);
     }
-
-    // TODO: Implement User parameter into Calendar for Special_Days
 
     /** Populates Calendar with Day boxes
      *
@@ -50,7 +48,10 @@ public class Calendar extends GridPane {
 
         for (int i = 0; i < 6; i++)
             for (int j = 0; j < 7; j++){
-                add(new CalendarBox(currentday, month, year, user), j, i);
+                if (writingcurrentmonth)
+                    add(new CalendarBox(currentday, month, year, user), j, i);
+                else
+                    add(new CalendarBox(currentday, month-1, year, user), j, i);
                 if (currentday < monthdays[lastmonth] && !writingcurrentmonth){
                     currentday++;
                 }
@@ -66,6 +67,9 @@ public class Calendar extends GridPane {
                     writingcurrentmonth = false;
                 }
             }
+    }
+    public void populateCalendar(){
+        populateCalendar(month, year);
     }
 
     // Starts at December for looping purposes

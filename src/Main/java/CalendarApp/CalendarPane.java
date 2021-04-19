@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 
@@ -17,17 +18,23 @@ public class CalendarPane extends BorderPane {
     private final Button previousmonth;
     private final Button addevent;
 
+
+    /** Pane that contains a calendar as well as some buttons
+     *
+     * @param month Current month being displayed
+     * @param year Current year being displayed
+     * @param user Current user logged in
+     */
     public CalendarPane(int month, int year, User user){
         CalendarBody = new Calendar(month, year, user);
         datetext = new Label(CalendarBody.dateToString());
         nextmonth = new Button(">");
         previousmonth = new Button("<");
         addevent = new Button("Add Event");
+        user.setCalendar(CalendarBody);
 
         HBox topSector = new HBox(previousmonth, datetext, nextmonth);
         HBox bottomSector = new HBox(addevent);
-
-        // TODO: Implement User parameter into CalendarPane for Special_Days
 
         nextmonth.setOnAction(event -> {
             CalendarBody.moveMonthForwards();
@@ -40,8 +47,11 @@ public class CalendarPane extends BorderPane {
         });
 
         addevent.setOnAction(event -> {
-            Scene scene = new Scene(new addEventPane(user));
             Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            Scene scene = new Scene(new EventPane(user, stage));
+            stage.setAlwaysOnTop(true);
+            stage.setResizable(false);
             stage.setScene(scene);
             stage.show();
         });
