@@ -9,6 +9,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
@@ -207,21 +208,18 @@ public class LoginPane extends FlowPane  {
         };
 
         EventHandler<ActionEvent> event1 = e -> {
-            //Label for education
-            Label label = new Label("Educational qualification:");
-            Font font = Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 12);
-            label.setFont(font);
-            //list View for educational qualification
-            ObservableList<String> names = FXCollections.observableArrayList("Engineering", "MCA", "MBA", "Graduation", "MTECH", "Mphil", "Phd");
-            ListView<String> listView = new ListView<String>(names);
-            listView.setMaxSize(200, 160);
-            //Creating the layout
-            VBox layout = new VBox(10);
-            layout.setPadding(new Insets(5, 5, 5, 50));
-            layout.getChildren().addAll(label, listView);
-            layout.setStyle("-fx-background-color: BEIGE");
-            //Setting the stage
-            Scene scene = new Scene(layout, 595, 200);
+            Label z = new Label("This is a choice box");
+            String st[] = { "Arnab", "Andrew", "Ankit", "None" };
+            ChoiceBox c = new ChoiceBox(FXCollections.observableArrayList(st));
+            getChildren().add(z);
+            getChildren().add(c);
+            z.setTranslateX(-218);
+            z.setTranslateY(30);
+            c.setTranslateX(-218);
+            c.setTranslateY(30);
+
+
+
             System.out.println("It works!!!");
 
 
