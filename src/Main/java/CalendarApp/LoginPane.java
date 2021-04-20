@@ -1,14 +1,18 @@
 package CalendarApp;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -109,6 +113,8 @@ public class LoginPane extends FlowPane  {
                     d.getEditor().clear();
                 }
             });
+        };
+        EventHandler<ActionEvent> event1 = e -> {
 
         };
 
@@ -120,6 +126,7 @@ public class LoginPane extends FlowPane  {
         clear.setTranslateX(348);
         clear.setTranslateY(-65);
         y.setOnAction(event);
+        n.setOnAction(event1);
         getChildren().addAll(y, n, l);
 
     }
@@ -128,16 +135,11 @@ public class LoginPane extends FlowPane  {
     public LoginPane(){
 
 
-
-        /**
-        public void clearWindow() {
-            getchildren().clear();
-        }
-         */
         setPadding(new Insets(20, 20, 200, 20));
         setHgap(5);
         setVgap(5);
         getChildren().addAll(new Label("Are you a first time user?"));
+
 
         Button y = new Button("Yes");
         Button n = new Button("No");
@@ -155,10 +157,6 @@ public class LoginPane extends FlowPane  {
             DatePicker d = new DatePicker();
             getChildren().addAll(d, a, clear);
 
-            final Label label = new Label();
-            GridPane.setConstraints(label, 0, 3);
-            GridPane.setColumnSpan(label, 2);
-            getChildren().add(label);
 
 
             a.setOnAction(new EventHandler<ActionEvent>() {
@@ -208,6 +206,30 @@ public class LoginPane extends FlowPane  {
 
         };
 
+        EventHandler<ActionEvent> event1 = e -> {
+            //Label for education
+            Label label = new Label("Educational qualification:");
+            Font font = Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 12);
+            label.setFont(font);
+            //list View for educational qualification
+            ObservableList<String> names = FXCollections.observableArrayList("Engineering", "MCA", "MBA", "Graduation", "MTECH", "Mphil", "Phd");
+            ListView<String> listView = new ListView<String>(names);
+            listView.setMaxSize(200, 160);
+            //Creating the layout
+            VBox layout = new VBox(10);
+            layout.setPadding(new Insets(5, 5, 5, 50));
+            layout.getChildren().addAll(label, listView);
+            layout.setStyle("-fx-background-color: BEIGE");
+            //Setting the stage
+            Scene scene = new Scene(layout, 595, 200);
+            System.out.println("It works!!!");
+
+
+
+        };
+
+
+
 
         l.setTranslateX(10);
         l.setTranslateY(-3);
@@ -216,6 +238,7 @@ public class LoginPane extends FlowPane  {
         clear.setTranslateX(348);
         clear.setTranslateY(-65);
         y.setOnAction(event);
+        n.setOnAction(event1);
         getChildren().addAll(y, n, l);
 
     }
