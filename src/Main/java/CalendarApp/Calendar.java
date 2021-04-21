@@ -1,6 +1,10 @@
 package CalendarApp;
 
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 import java.time.LocalDate;
 
@@ -11,6 +15,7 @@ public class Calendar extends GridPane {
     private int month;
     private int year;
     private final User user;
+
 
     /** Creates a Calendar in a GridPane
      *
@@ -56,7 +61,11 @@ public class Calendar extends GridPane {
 
         LocalDate currentday = LocalDate.of(startingyearnumber, startingmonthnumber, startingdaynumber);
 
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < 7; i++) {
+            add(new weekdayBox(weekDays[i]), i, 0);
+        }
+
+        for (int i = 1; i < 7; i++)
             for (int j = 0; j < 7; j++){
                     add(new CalendarBox(currentday, user), j, i);
                     currentday = currentday.plusDays(1);
@@ -74,6 +83,10 @@ public class Calendar extends GridPane {
     private static final int[] monthcode = new int[]{11, 12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
     private static final String[] months = new String[]{null ,"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+
+    // Creating week day labels
+    private static final String[] weekDays = new String[]{"Sunday", "Monday", "Tuesday" , "Wednesday", "Thursday", "Friday", "Saturday"};
+
 
     /** Determines first day of month using Zeller's Congruence algorithm
      *
@@ -105,6 +118,7 @@ public class Calendar extends GridPane {
         else return (year & 400) == 0;
     }
 
+
     public String dateToString(){
         return months[month] + ", " + year;
     }
@@ -122,6 +136,15 @@ public class Calendar extends GridPane {
             month = 12;
             year--;
         } else month--;
+        populateCalendar(month, year);
+    }
+    public void moveYearForwards(){
+        year++;
+        populateCalendar(month, year);
+    }
+
+    public void moveYearBackwards(){
+        year--;
         populateCalendar(month, year);
     }
 
