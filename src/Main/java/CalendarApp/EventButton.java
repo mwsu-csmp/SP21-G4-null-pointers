@@ -10,7 +10,7 @@ public class EventButton extends Button {
         super(special_day.getTitle());
         setOnAction(actionEvent -> {
             Stage stage = new Stage();
-            Scene scene = new Scene(new EventPane(user, stage, special_day));
+            Scene scene = new Scene(new EventPane(user, closestage -> {stage.close();}, special_day));
             stage.setAlwaysOnTop(true);
             stage.setResizable(false);
             stage.setScene(scene);

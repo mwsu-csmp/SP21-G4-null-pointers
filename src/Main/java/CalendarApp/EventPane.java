@@ -16,6 +16,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.function.Consumer;
 
 public class EventPane extends GridPane {
     private final TextField eventTitle = new TextField();
@@ -35,9 +36,9 @@ public class EventPane extends GridPane {
     /** Creates an EventPane for making a new Special_Day
      *
      * @param user Current user logged in
-     * @param stage Stage the pane is on
+     * @param postAddEventAction
      */
-    public EventPane(User user, Stage stage){
+    public EventPane(User user, Consumer<Boolean> postAddEventAction){
 
         this.user = user;
         calendar = user.getCalendar();
@@ -53,7 +54,7 @@ public class EventPane extends GridPane {
                     try {
                         user.addSpecialDay(generateSpecial_Day());
                         calendar.populateCalendar();
-                        stage.close();
+                        postAddEventAction.accept(true);
                     } catch (IllegalArgumentException e) {
                         errorMessage.setText("ERROR: " + e.getMessage());
                     } catch (DateTimeParseException e) {
@@ -66,10 +67,10 @@ public class EventPane extends GridPane {
     /** Constructs a window to view or edit a selected event
      *
      * @param user Current user logged in
-     * @param stage Stage the pane is on
+     * @param postAddEventAction
      * @param special_day Special_day being edited
      */
-    public EventPane(User user, Stage stage, Special_Day special_day) {
+    public EventPane(User user, Consumer<Boolean> postAddEventAction, Special_Day special_day) {
 
         this.user = user;
         calendar = user.getCalendar();
@@ -130,7 +131,7 @@ public class EventPane extends GridPane {
                 user.addSpecialDay(generateSpecial_Day());
                 user.removeSpecialDay(special_day);
                 calendar.populateCalendar();
-                stage.close();
+                postAddEventAction.accept(true);
             } catch (IllegalArgumentException e) {
                 errorMessage.setText("ERROR: " + e.getMessage());
             } catch (DateTimeParseException e) {

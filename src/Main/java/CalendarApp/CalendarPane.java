@@ -10,6 +10,9 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+import java.util.function.Consumer;
+
 
 public class CalendarPane extends BorderPane {
     private final Calendar CalendarBody;
@@ -17,6 +20,7 @@ public class CalendarPane extends BorderPane {
     private final Button nextmonth;
     private final Button previousmonth;
     private final Button addevent;
+    private final Button saveandexit;
 
 
     /** Pane that contains a calendar as well as some buttons
@@ -25,16 +29,17 @@ public class CalendarPane extends BorderPane {
      * @param year Current year being displayed
      * @param user Current user logged in
      */
-    public CalendarPane(int month, int year, User user){
+    public CalendarPane(int month, int year, User user, Consumer<Boolean> exit){
         CalendarBody = new Calendar(month, year, user);
         datetext = new Label(CalendarBody.dateToString());
         nextmonth = new Button(">");
         previousmonth = new Button("<");
         addevent = new Button("Add Event");
+        saveandexit = new Button("Save and exit");
         user.setCalendar(CalendarBody);
 
         HBox topSector = new HBox(previousmonth, datetext, nextmonth);
-        HBox bottomSector = new HBox(addevent);
+        HBox bottomSector = new HBox(addevent, saveandexit);
 
         nextmonth.setOnAction(event -> {
             CalendarBody.moveMonthForwards();
@@ -49,11 +54,22 @@ public class CalendarPane extends BorderPane {
         addevent.setOnAction(event -> {
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
-            Scene scene = new Scene(new EventPane(user, stage));
+            Scene scene = new Scene(new EventPane(user, closestage -> {
+                stage.close();
+            }));
             stage.setAlwaysOnTop(true);
             stage.setResizable(false);
             stage.setScene(scene);
             stage.show();
+        });
+
+        saveandexit.setOnAction(event -> {
+            try {
+                user.saveSpecial_Days();
+                exit.accept(true);
+            } catch (IOException e) {
+                //TODO: add error message
+            }
         });
 
         previousmonth.setTooltip(new Tooltip("Goes back a month"));

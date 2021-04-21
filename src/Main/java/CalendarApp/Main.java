@@ -19,9 +19,11 @@ public class Main extends Application {
 
         User user = new User("Devin Amos", LocalDate.now());
         LoginPane loginPane = new LoginPane();
-        CalendarPane calendarPane = new CalendarPane(month, year, user);
+        CalendarPane calendarPane = new CalendarPane(month, year, user, closeApp -> {
+            primaryStage.close();
+        });
 
-        Scene scene = new Scene(loginPane);
+        Scene scene = new Scene(calendarPane);
         primaryStage.setScene(scene);
         primaryStage.show();
 
