@@ -15,6 +15,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 
+import java.io.File;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -51,7 +52,10 @@ public class LoginPane extends FlowPane  {
         Button y = new Button("Yes");
         Button n = new Button("No");
         Button a = new Button("Add");
+        Button confirm = new Button("Confirm");
         Button clear = new Button("Clear");
+        a.setStyle("-fx-background-color: #06f642; ");
+        clear.setStyle("-fx-background-color: rgba(205,18,18,0.75); ");
 
         Label l = new Label("");
         TextField b = new TextField("initial text");
@@ -84,20 +88,7 @@ public class LoginPane extends FlowPane  {
 
                         nameDatabase();
                         names.clear();
-
-                        while (true) {
-                            //user.setName(full_name);
-                            //user.setBirthday(date1);
-                            names.add(user);
-                            break;
-                        }
-
-                        for(int i = 0; i < names.size(); i++) {
-                            names.get(i).setName(full_name);
-                            names.get(i).setBirthday(date1);
-                            System.out.println(names.get(i).getName() + " " + names.get(i).getBirthday());
-                            break;
-                        }
+                        names.add(user);
                         clearWindow();
                         restart();
                     }
@@ -116,6 +107,27 @@ public class LoginPane extends FlowPane  {
             });
         };
         EventHandler<ActionEvent> event1 = e -> {
+            Label z = new Label("This is a choice box");
+            ChoiceBox c = new ChoiceBox();
+            File folder = new File("C:\\Users\\Josiah Randleman\\IdeaProjects\\SP21-G4-null-pointers\\resources\\Users");
+            File[] listOfFiles = folder.listFiles();
+
+            for(int i = 0; i < listOfFiles.length; i++) {
+                c.getItems().add(listOfFiles[i].getName());
+            }
+            confirm.setOnAction(new EventHandler<ActionEvent>() {
+                public void handle(ActionEvent e) {
+                }
+            });
+            getChildren().add(confirm);
+            getChildren().add(z);
+            getChildren().add(c);
+            z.setTranslateX(-280);              //TODO Fix add a GridPane
+            z.setTranslateY(30);
+            c.setTranslateX(-270);
+            c.setTranslateY(30);
+            confirm.setTranslateX(2);
+            confirm.setTranslateY(30);
 
         };
 
@@ -146,6 +158,9 @@ public class LoginPane extends FlowPane  {
         Button n = new Button("No");
         Button a = new Button("Add");
         Button clear = new Button("Clear");
+        Button confirm = new Button("Confirm");
+        a.setStyle("-fx-background-color: #06f642; ");
+        clear.setStyle("-fx-background-color: rgba(205,18,18,0.75); ");
 
         Label l = new Label("");
         TextField b = new TextField("initial text");
@@ -174,20 +189,7 @@ public class LoginPane extends FlowPane  {
 
                         nameDatabase();
                         names.clear();
-
-                        while (true) {
-                            //user.setName(full_name);
-                            //user.setBirthday(date1);
-                            names.add(user);
-                            break;
-                        }
-
-                        for(int i = 0; i < names.size(); i++) {
-                            names.get(i).setName(full_name);
-                            names.get(i).setBirthday(date1);
-                            System.out.println(names.get(i).getName() + " " + names.get(i).getBirthday());
-                            break;
-                        }
+                        names.add(user);
                         clearWindow();
                         restart();
                     }
@@ -209,20 +211,26 @@ public class LoginPane extends FlowPane  {
 
         EventHandler<ActionEvent> event1 = e -> {
             Label z = new Label("This is a choice box");
-            String st[] = { "Arnab", "Andrew", "Ankit", "None" };
-            ChoiceBox c = new ChoiceBox(FXCollections.observableArrayList(st));
+            ChoiceBox c = new ChoiceBox();
+            File folder = new File("C:\\Users\\Josiah Randleman\\IdeaProjects\\SP21-G4-null-pointers\\resources\\Users");
+            File[] listOfFiles = folder.listFiles();
+
+            for(int i = 0; i < listOfFiles.length; i++) {
+                c.getItems().add(listOfFiles[i].getName());
+            }
+            confirm.setOnAction(new EventHandler<ActionEvent>() {
+                public void handle(ActionEvent e) {
+                }
+            });
+            getChildren().add(confirm);
             getChildren().add(z);
             getChildren().add(c);
-            z.setTranslateX(-218);
+            z.setTranslateX(-280);           //TODO Fix add a GridPane
             z.setTranslateY(30);
-            c.setTranslateX(-218);
+            c.setTranslateX(-270);
             c.setTranslateY(30);
-
-
-
-            System.out.println("It works!!!");
-
-
+            confirm.setTranslateX(2);
+            confirm.setTranslateY(30);
 
         };
 

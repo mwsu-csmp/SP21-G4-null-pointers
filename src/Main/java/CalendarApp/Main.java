@@ -23,7 +23,7 @@ public class Main extends Application {
             primaryStage.close();
         });
 
-        Scene scene = new Scene(calendarPane);
+        Scene scene = new Scene(loginPane);
         primaryStage.setScene(scene);
         primaryStage.show();
 

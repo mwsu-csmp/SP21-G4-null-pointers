@@ -34,6 +34,12 @@ public class User {
         special_days = new ArrayList<>();
         special_days.add(new Special_Day("My birthday!", birthday, null, birthday, null, true, "It's my birthday!", null, true));
         makeUserDirectory();
+        try {
+            saveSpecial_Days();
+        } catch (IOException e) {
+            //TODO: add exception handle
+        }
+
     }
 
     /** re-creates an existing user
