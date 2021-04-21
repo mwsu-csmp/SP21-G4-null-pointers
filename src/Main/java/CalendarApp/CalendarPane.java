@@ -21,6 +21,8 @@ public class CalendarPane extends BorderPane {
     private final Button previousmonth;
     private final Button addevent;
     private final Button saveandexit;
+    private final Button nextyear;
+    private final Button previousyear;
 
 
     /** Pane that contains a calendar as well as some buttons
@@ -34,11 +36,15 @@ public class CalendarPane extends BorderPane {
         datetext = new Label(CalendarBody.dateToString());
         nextmonth = new Button(">");
         previousmonth = new Button("<");
+        nextyear = new Button(">>");
+        previousyear = new Button("<<");
         addevent = new Button("Add Event");
         saveandexit = new Button("Save and exit");
         user.setCalendar(CalendarBody);
 
-        HBox topSector = new HBox(previousmonth, datetext, nextmonth);
+        HBox leftButtons = new HBox(previousyear,previousmonth);
+        HBox rightButtons = new HBox(nextmonth, nextyear);
+        HBox topSector = new HBox(leftButtons, datetext, rightButtons);
         HBox bottomSector = new HBox(addevent, saveandexit);
 
         nextmonth.setOnAction(event -> {
@@ -48,6 +54,15 @@ public class CalendarPane extends BorderPane {
 
         previousmonth.setOnAction(event -> {
             CalendarBody.moveMonthBackwards();
+            datetext.setText(CalendarBody.dateToString());
+        });
+        nextyear.setOnAction(event -> {
+            CalendarBody.moveYearForwards();
+            datetext.setText(CalendarBody.dateToString());
+        });
+
+        previousyear.setOnAction(event -> {
+            CalendarBody.moveYearBackwards();
             datetext.setText(CalendarBody.dateToString());
         });
 
@@ -75,9 +90,14 @@ public class CalendarPane extends BorderPane {
         previousmonth.setTooltip(new Tooltip("Goes back a month"));
         nextmonth.setTooltip(new Tooltip("Goes forward a month"));
 
+        previousyear.setTooltip(new Tooltip("Goes back a year"));
+        nextyear.setTooltip(new Tooltip("Goes forward a year"));
+
+        previousyear.setAlignment(Pos.CENTER_LEFT);
         previousmonth.alignmentProperty().setValue(Pos.CENTER_LEFT);
         datetext.alignmentProperty().setValue(Pos.CENTER);
         nextmonth.alignmentProperty().setValue(Pos.CENTER_RIGHT);
+        nextyear.alignmentProperty().setValue(Pos.CENTER_RIGHT);
 
         topSector.setAlignment(Pos.CENTER);
         topSector.setSpacing(100);
