@@ -25,25 +25,12 @@ public class LoginPane extends FlowPane  {
 
     // TODO: possibly user could pick from list of created users, or create a new one. That way less typing is needed.
 
-    static ArrayList<User> names;
-
-    static void nameDatabase() {
-        names = new ArrayList<>();
-        names.add(new User("Josiah", LocalDate.now()));
-
-
-    }
     public void clearWindow() {
         getChildren().clear();
     }
 
     public void restart() {
 
-        /**
-         public void clearWindow() {
-         getchildren().clear();
-         }
-         */
         setPadding(new Insets(20, 20, 200, 20));
         setHgap(5);
         setVgap(5);
@@ -85,10 +72,6 @@ public class LoginPane extends FlowPane  {
 
                     if ((tfMi.getText() != null && !tfMi.getText().isEmpty())) {
                         User user = new User(full_name, date1);
-
-                        nameDatabase();
-                        names.clear();
-                        names.add(user);
                         clearWindow();
                         restart();
                     }
@@ -186,10 +169,6 @@ public class LoginPane extends FlowPane  {
 
                     if ((tfMi.getText() != null && !tfMi.getText().isEmpty())) {
                         User user = new User(full_name, date1);
-
-                        nameDatabase();
-                        names.clear();
-                        names.add(user);
                         clearWindow();
                         restart();
                     }
