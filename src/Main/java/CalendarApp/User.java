@@ -26,9 +26,10 @@ public class User {
      *
      * @param name name of the user
      * @param birthday the user's birthday
-     * @throws IOException if user directory could not be made
+     * @throws IllegalArgumentException if birthday is null
      */
-    public User(String name, LocalDate birthday){
+    public User(String name, LocalDate birthday) throws IllegalArgumentException{
+        if (birthday == null) throw new IllegalArgumentException("Bad birthday!");
         this.name = name;
         this.birthday = birthday;
         special_days = new ArrayList<>();
