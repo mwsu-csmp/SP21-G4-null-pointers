@@ -1,15 +1,24 @@
 package CalendarApp;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.TilePane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.function.Consumer;
 
 
@@ -65,9 +74,10 @@ public class LoginPane extends FlowPane  {
                     if ((tfMi.getText() != null && !tfMi.getText().isEmpty())) {
                         User user = new User(full_name, date1);
                         clearWindow();
-                        restart(postLoginAction);
+                        //restart();
                     }
                 }
+
             });
 
             //Setting an action for the Clear button
@@ -163,7 +173,7 @@ public class LoginPane extends FlowPane  {
                     if ((tfMi.getText() != null && !tfMi.getText().isEmpty())) {
                         User user = new User(full_name, date1);
                         clearWindow();
-                        restart(postLoginAction);
+                       // restart();
                     }
                 }
 
