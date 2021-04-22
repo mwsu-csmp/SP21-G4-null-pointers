@@ -74,7 +74,7 @@ public class LoginPane extends FlowPane  {
                     if ((tfMi.getText() != null && !tfMi.getText().isEmpty())) {
                         User user = new User(full_name, date1);
                         clearWindow();
-                        //restart();
+                        restart(postLoginAction);
                     }
                 }
 
@@ -173,7 +173,7 @@ public class LoginPane extends FlowPane  {
                     if ((tfMi.getText() != null && !tfMi.getText().isEmpty())) {
                         User user = new User(full_name, date1);
                         clearWindow();
-                       // restart();
+                        restart(postLoginAction);
                     }
                 }
 
