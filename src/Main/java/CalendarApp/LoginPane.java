@@ -16,8 +16,10 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 
 import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.function.Consumer;
 
 
 public class LoginPane extends FlowPane  {
@@ -29,7 +31,7 @@ public class LoginPane extends FlowPane  {
         getChildren().clear();
     }
 
-    public void restart() {
+    public void restart(Consumer<User> postLoginAction) {
         setPadding(new Insets(100, 150, 150, 200));
         setHgap(5);
         setVgap(5);
@@ -72,7 +74,7 @@ public class LoginPane extends FlowPane  {
                     if ((tfMi.getText() != null && !tfMi.getText().isEmpty())) {
                         User user = new User(full_name, date1);
                         clearWindow();
-                        restart();
+                        //restart();
                     }
                 }
 
@@ -97,8 +99,12 @@ public class LoginPane extends FlowPane  {
             for(int i = 0; i < listOfFiles.length; i++) {
                 c.getItems().add(listOfFiles[i].getName());
             }
-            confirm.setOnAction(new EventHandler<ActionEvent>() {
-                public void handle(ActionEvent e) {
+            confirm.setOnAction(confirmUser -> {
+                try {
+                    postLoginAction.accept(new User((String) c.getValue()));
+                } catch (IOException o) {
+                    // TODO react to Special_Days file not being found
+                    System.out.println("could not find Special_Days file!");
                 }
             });
             getChildren().add(confirm);
@@ -127,7 +133,7 @@ public class LoginPane extends FlowPane  {
     }
 
     // TODO: Create more meaningful variable names
-    public LoginPane(){
+    public LoginPane(Consumer<User> postLoginAction) {
         setPadding(new Insets(100, 150, 150, 200));
         setHgap(5);
         setVgap(5);
@@ -167,7 +173,7 @@ public class LoginPane extends FlowPane  {
                     if ((tfMi.getText() != null && !tfMi.getText().isEmpty())) {
                         User user = new User(full_name, date1);
                         clearWindow();
-                        restart();
+                       // restart();
                     }
                 }
 
@@ -194,8 +200,12 @@ public class LoginPane extends FlowPane  {
             for(int i = 0; i < listOfFiles.length; i++) {
                 c.getItems().add(listOfFiles[i].getName());
             }
-            confirm.setOnAction(new EventHandler<ActionEvent>() {
-                public void handle(ActionEvent e) {
+            confirm.setOnAction(confirmUser -> {
+                try {
+                    postLoginAction.accept(new User((String) c.getValue()));
+                } catch (IOException o) {
+                    // TODO react to Special_Days file not being found
+                    System.out.println("could not find Special_Days file!");
                 }
             });
             getChildren().add(confirm);

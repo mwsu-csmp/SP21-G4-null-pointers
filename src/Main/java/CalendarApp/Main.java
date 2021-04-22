@@ -17,10 +17,13 @@ public class Main extends Application {
         final int month = LocalDate.now().getMonth().getValue();
         final int year = LocalDate.now().getYear();
 
-        User user = new User("Devin Amos", LocalDate.now());
-        LoginPane loginPane = new LoginPane();
-        CalendarPane calendarPane = new CalendarPane(month, year, user, closeApp -> {
-            primaryStage.close();
+        LoginPane loginPane = new LoginPane(user -> {
+            LocalDate now = LocalDate.now();
+            CalendarPane calendarPane = new CalendarPane(now.getMonthValue(), now.getYear(), user, closeApp -> {
+                primaryStage.close();
+            });
+            Scene calendar = new Scene(calendarPane);
+            primaryStage.setScene(calendar);
         });
 
         Scene scene = new Scene(loginPane);
@@ -28,8 +31,6 @@ public class Main extends Application {
         primaryStage.show();
 
         // TODO: Implement LoginPane as starting Pane, then move to CalendarPane upon initialization
-
     }
 }
-
 
