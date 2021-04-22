@@ -30,8 +30,7 @@ public class LoginPane extends FlowPane  {
     }
 
     public void restart() {
-
-        setPadding(new Insets(20, 20, 200, 20));
+        setPadding(new Insets(100, 150, 150, 200));
         setHgap(5);
         setVgap(5);
         getChildren().addAll(new Label("Are you a first time user?"));
@@ -105,11 +104,11 @@ public class LoginPane extends FlowPane  {
             getChildren().add(confirm);
             getChildren().add(z);
             getChildren().add(c);
-            z.setTranslateX(-280);              //TODO Fix add a GridPane
+            z.setTranslateX(-280);           //TODO Fix add a GridPane
             z.setTranslateY(30);
-            c.setTranslateX(-270);
-            c.setTranslateY(30);
-            confirm.setTranslateX(2);
+            c.setTranslateX(115);
+            c.setTranslateY(0);
+            confirm.setTranslateX(10);
             confirm.setTranslateY(30);
 
         };
@@ -129,9 +128,7 @@ public class LoginPane extends FlowPane  {
 
     // TODO: Create more meaningful variable names
     public LoginPane(){
-
-
-        setPadding(new Insets(20, 20, 200, 20));
+        setPadding(new Insets(100, 150, 150, 200));
         setHgap(5);
         setVgap(5);
         getChildren().addAll(new Label("Are you a first time user?"));
@@ -206,9 +203,9 @@ public class LoginPane extends FlowPane  {
             getChildren().add(c);
             z.setTranslateX(-280);           //TODO Fix add a GridPane
             z.setTranslateY(30);
-            c.setTranslateX(-270);
-            c.setTranslateY(30);
-            confirm.setTranslateX(2);
+            c.setTranslateX(115);
+            c.setTranslateY(0);
+            confirm.setTranslateX(30);
             confirm.setTranslateY(30);
 
         };
