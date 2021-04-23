@@ -1,24 +1,16 @@
 package CalendarApp;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+
 import javafx.geometry.Insets;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.TilePane;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
-
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
+
 import java.util.function.Consumer;
 
 
@@ -93,7 +85,7 @@ public class LoginPane extends FlowPane  {
         EventHandler<ActionEvent> event1 = e -> {
             Label z = new Label("This is a choice box");
             ChoiceBox c = new ChoiceBox();
-            File folder = new File("C:\\Users\\Josiah Randleman\\IdeaProjects\\SP21-G4-null-pointers\\resources\\Users");
+            File folder = new File("resources/Users");
             File[] listOfFiles = folder.listFiles();
 
             for(int i = 0; i < listOfFiles.length; i++) {
@@ -194,7 +186,7 @@ public class LoginPane extends FlowPane  {
         EventHandler<ActionEvent> event1 = e -> {
             Label z = new Label("This is a choice box");
             ChoiceBox c = new ChoiceBox();
-            File folder = new File("C:\\Users\\Josiah Randleman\\IdeaProjects\\SP21-G4-null-pointers\\resources\\Users");
+            File folder = new File("resources/Users");
             File[] listOfFiles = folder.listFiles();
 
             for(int i = 0; i < listOfFiles.length; i++) {
