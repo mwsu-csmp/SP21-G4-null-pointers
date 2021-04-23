@@ -1,10 +1,6 @@
 package CalendarApp;
 
-import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
 import java.time.LocalDate;
 
@@ -107,17 +103,6 @@ public class Calendar extends GridPane {
         else // function to mod a negative number
             return (int)(F - (floor(F / 7.0) * 7));
     }
-
-    /** Determines if a given year is a leap year
-     *
-     * @param year current year being displayed
-     */
-    private static boolean isLeapYear(int year){
-        if ((year % 4) == 0)
-            return true;
-        else return (year & 400) == 0;
-    }
-
 
     public String dateToString(){
         return months[month] + ", " + year;

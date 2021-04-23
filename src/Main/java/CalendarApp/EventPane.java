@@ -9,7 +9,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -30,17 +29,15 @@ public class EventPane extends GridPane {
     private final CheckBox isPrivate = new CheckBox();
     private final Label errorMessage = new Label("");
     private final HBox times = new HBox();
-    private final User user;
     private final Calendar calendar;
 
     /** Creates an EventPane for making a new Special_Day
      *
-     * @param user Current user logged in
-     * @param postAddEventAction
+     * @param user current user logged in
+     * @param postAddEventAction action to be done after event is added
      */
     public EventPane(User user, Consumer<Boolean> postAddEventAction){
 
-        this.user = user;
         calendar = user.getCalendar();
 
         Text scenetitle = new Text("Add Event");
@@ -66,13 +63,12 @@ public class EventPane extends GridPane {
 
     /** Constructs a window to view or edit a selected event
      *
-     * @param user Current user logged in
-     * @param postAddEventAction
-     * @param special_day Special_day being edited
+     * @param user current user logged in
+     * @param postAddEventAction action to be done after event is added
+     * @param special_day special_day being edited
      */
     public EventPane(User user, Consumer<Boolean> postAddEventAction, Special_Day special_day) {
 
-        this.user = user;
         calendar = user.getCalendar();
 
         Text scenetitle = new Text("View Event");

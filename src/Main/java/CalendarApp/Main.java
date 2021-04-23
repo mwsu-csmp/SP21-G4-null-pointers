@@ -14,14 +14,9 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        final int month = LocalDate.now().getMonth().getValue();
-        final int year = LocalDate.now().getYear();
-
         LoginPane loginPane = new LoginPane(user -> {
             LocalDate now = LocalDate.now();
-            CalendarPane calendarPane = new CalendarPane(now.getMonthValue(), now.getYear(), user, closeApp -> {
-                primaryStage.close();
-            });
+            CalendarPane calendarPane = new CalendarPane(now.getMonthValue(), now.getYear(), user, closeApp -> primaryStage.close());
             Scene calendar = new Scene(calendarPane);
             primaryStage.setScene(calendar);
         });

@@ -17,12 +17,6 @@ import java.util.function.Consumer;
 public class CalendarPane extends BorderPane {
     private final Calendar CalendarBody;
     private final Label datetext;
-    private final Button nextmonth;
-    private final Button previousmonth;
-    private final Button addevent;
-    private final Button saveandexit;
-    private final Button nextyear;
-    private final Button previousyear;
 
 
     /** Pane that contains a calendar as well as some buttons
@@ -34,15 +28,15 @@ public class CalendarPane extends BorderPane {
     public CalendarPane(int month, int year, User user, Consumer<Boolean> exit){
         CalendarBody = new Calendar(month, year, user);
         datetext = new Label(CalendarBody.dateToString());
-        nextmonth = new Button(">");
-        previousmonth = new Button("<");
-        nextyear = new Button(">>");
-        previousyear = new Button("<<");
-        addevent = new Button("Add Event");
-        saveandexit = new Button("Save and exit");
+        Button nextmonth = new Button(">");
+        Button previousmonth = new Button("<");
+        Button nextyear = new Button(">>");
+        Button previousyear = new Button("<<");
+        Button addevent = new Button("Add Event");
+        Button saveandexit = new Button("Save and exit");
         user.setCalendar(CalendarBody);
 
-        HBox leftButtons = new HBox(previousyear,previousmonth);
+        HBox leftButtons = new HBox(previousyear, previousmonth);
         HBox rightButtons = new HBox(nextmonth, nextyear);
         HBox topSector = new HBox(leftButtons, datetext, rightButtons);
         HBox bottomSector = new HBox(addevent, saveandexit);
@@ -69,9 +63,7 @@ public class CalendarPane extends BorderPane {
         addevent.setOnAction(event -> {
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
-            Scene scene = new Scene(new EventPane(user, closestage -> {
-                stage.close();
-            }));
+            Scene scene = new Scene(new EventPane(user, closestage -> stage.close()));
             stage.setAlwaysOnTop(true);
             stage.setResizable(false);
             stage.setScene(scene);

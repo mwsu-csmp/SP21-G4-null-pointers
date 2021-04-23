@@ -2,7 +2,6 @@ package CalendarApp;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -42,7 +41,6 @@ public class CalendarBox extends StackPane {
         ComboBox<String> eventsdropdown = new ComboBox<>();
 
         // Adds each Special_Day to events if they meet criteria
-        int extraevents = 0;
         for (Special_Day special_day : user.getSpecial_Days()) {
             if (events.getChildren().size() < 4){
                 if (currentday.isAfter(special_day.getStartdate()) && currentday.isBefore(special_day.getEnddate()))
@@ -55,11 +53,9 @@ public class CalendarBox extends StackPane {
                 if (events.getChildren().size() == 4) events.getChildren().add(eventsdropdown);
                 if (currentday.isAfter(special_day.getStartdate()) && currentday.isBefore(special_day.getEnddate())) {
                     eventsdropdown.getItems().add((special_day.getTitle()));
-                    extraevents++;
                 }
                 else if (currentday.isEqual(special_day.getStartdate()) || currentday.isEqual(special_day.getEnddate())) {
                     eventsdropdown.getItems().add((special_day.getTitle()));
-                    extraevents++;
                 }
             }
 

@@ -1,22 +1,21 @@
 package CalendarApp;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Special_Day {
-    private String title;
-    private LocalDate startdate;
-    private LocalDate enddate;
-    private LocalTime starttime;
-    private LocalTime endtime;
-    private boolean isallday;
-    private String description;
-    private String location;
-    private boolean isprivate;
+    private final String title;
+    private final LocalDate startdate;
+    private final LocalDate enddate;
+    private final LocalTime starttime;
+    private final LocalTime endtime;
+    private final boolean isallday;
+    private final String description;
+    private final String location;
+    private final boolean isprivate;
 
     public Special_Day(String title, LocalDate startdate, LocalTime starttime, LocalDate enddate, LocalTime endtime, boolean isallday, String description, String location, boolean isprivate) throws IllegalArgumentException {
         this.title = title;
@@ -77,23 +76,6 @@ public class Special_Day {
         } catch (Exception e) {
             throw new IllegalArgumentException(e.getMessage());
         }
-    }
-
-    public void update(String title, LocalDate startdate, LocalTime starttime, LocalDate enddate, LocalTime endtime, boolean isallday, String description, String location, boolean isprivate) {
-        this.title = title;
-        this.startdate = startdate;
-        this.enddate = enddate;
-        if (!isallday){
-            this.starttime = starttime;
-            this.endtime = endtime;
-        } else {
-            this.starttime = null;
-            this.endtime = null;
-        }
-        this.isallday = isallday;
-        this.description = description;
-        this.location = location;
-        this.isprivate = isprivate;
     }
 
     public String serialize() {

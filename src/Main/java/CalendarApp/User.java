@@ -1,14 +1,5 @@
 package CalendarApp;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -17,8 +8,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class User {
-    private String name;
-    private LocalDate birthday;
+    private final String name;
     private final ArrayList<Special_Day> special_days;
     private Calendar calendar;
 
@@ -31,7 +21,6 @@ public class User {
     public User(String name, LocalDate birthday) throws IllegalArgumentException{
         if (birthday == null) throw new IllegalArgumentException("Bad birthday!");
         this.name = name;
-        this.birthday = birthday;
         special_days = new ArrayList<>();
         special_days.add(new Special_Day("My birthday!", birthday, null, birthday, null, true, "It's my birthday!", null, true));
         makeUserDirectory();
@@ -62,25 +51,11 @@ public class User {
         special_days.remove(special_day);
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-    public String getName() {
-        return name;
-    }
-
     public void setCalendar(Calendar calendar) {
         this.calendar = calendar;
     }
     public Calendar getCalendar() {
         return calendar;
-    }
-
-    public void setBirthday(LocalDate birthday) {
-        this.birthday = birthday;
-    }
-    public LocalDate getBirthday() {
-        return birthday;
     }
 
     public ArrayList<Special_Day> getSpecial_Days(){
