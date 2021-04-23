@@ -2,25 +2,24 @@ package CalendarApp;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.control.Label;
 
 import java.time.LocalDate;
 
 public class CalendarBox extends StackPane {
 
-    public CalendarBox(LocalDate currentday, User user){
+    public CalendarBox(LocalDate currentday, User user, boolean currentmonth){
 
         int day = currentday.getDayOfMonth();
 
         // Outline and number of box
         Rectangle outline = new Rectangle();
         Label daynumber = new Label(day + ".");
-        outline.setFill(null);
+        outline.setFill(currentmonth ? null : Color.LIGHTGRAY);
         outline.setStroke(Color.BLACK);
         outline.setWidth(150);
         outline.setHeight(150);
@@ -38,8 +37,10 @@ public class CalendarBox extends StackPane {
         setMargin(events, new Insets(4));
 
         // Dropdown for event overflow
-        ComboBox<String> eventsdropdown = new ComboBox<>();
+        MenuButton eventsdropdown = new MenuButton();
 
+
+        int extraevents = 0;
         // Adds each Special_Day to events if they meet criteria
         for (Special_Day special_day : user.getSpecial_Days()) {
             if (events.getChildren().size() < 4){
@@ -52,10 +53,14 @@ public class CalendarBox extends StackPane {
             else {
                 if (events.getChildren().size() == 4) events.getChildren().add(eventsdropdown);
                 if (currentday.isAfter(special_day.getStartdate()) && currentday.isBefore(special_day.getEnddate())) {
-                    eventsdropdown.getItems().add((special_day.getTitle()));
+                    eventsdropdown.getItems().add(new CustomMenuItem(new EventButton(user, special_day)));
+                    extraevents++;
+                    eventsdropdown.setText(extraevents + " more");
                 }
                 else if (currentday.isEqual(special_day.getStartdate()) || currentday.isEqual(special_day.getEnddate())) {
-                    eventsdropdown.getItems().add((special_day.getTitle()));
+                    eventsdropdown.getItems().add(new CustomMenuItem(new EventButton(user, special_day)));
+                    extraevents++;
+                    eventsdropdown.setText(extraevents + " more");
                 }
             }
 

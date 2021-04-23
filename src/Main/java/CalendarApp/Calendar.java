@@ -38,6 +38,7 @@ public class Calendar extends GridPane {
         int startingmonthnumber;
         int startingyearnumber = year;
         int startingdaynumber;
+        boolean currentmonth;
 
         // Determines last month
         if (month == 1) {
@@ -63,7 +64,8 @@ public class Calendar extends GridPane {
 
         for (int i = 1; i < 7; i++)
             for (int j = 0; j < 7; j++){
-                    add(new CalendarBox(currentday, user), j, i);
+                    currentmonth = currentday.getMonthValue() == month;
+                    add(new CalendarBox(currentday, user, currentmonth), j, i);
                     currentday = currentday.plusDays(1);
                 }
         }
