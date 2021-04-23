@@ -1,24 +1,14 @@
 package CalendarApp;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.TilePane;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
 
 import java.io.File;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.function.Consumer;
 
 
@@ -46,7 +36,6 @@ public class LoginPane extends FlowPane  {
         clear.setStyle("-fx-background-color: rgba(205,18,18,0.75); ");
 
         Label l = new Label("");
-        TextField b = new TextField("initial text");
         EventHandler<ActionEvent> event = e -> {
             getChildren().addAll(new Label("Please enter your first and last name:"));
             TextField tfMi = new TextField();
@@ -62,46 +51,31 @@ public class LoginPane extends FlowPane  {
             getChildren().add(label);
 
 
-            a.setOnAction(new EventHandler<ActionEvent>() {
-
-                public void handle(ActionEvent e) {
-                    String full_name;
-                    full_name = tfMi.getText();
-                    LocalDate date1;
-                    date1 = d.getValue();
-
-
+            a.setOnAction(event1 -> {
                     if ((tfMi.getText() != null && !tfMi.getText().isEmpty())) {
-                        User user = new User(full_name, date1);
                         clearWindow();
                         restart(postLoginAction);
                     }
-                }
-
-            });
+                });
 
             //Setting an action for the Clear button
-            clear.setOnAction(new EventHandler<ActionEvent>() {
-
-                // @Override
-                public void handle(ActionEvent e) {
+            clear.setOnAction(event1 -> {
                     tfMi.setText("");
                     d.getEditor().clear();
-                }
-            });
+                });
         };
         EventHandler<ActionEvent> event1 = e -> {
             Label z = new Label("This is a choice box");
-            ChoiceBox c = new ChoiceBox();
-            File folder = new File("C:\\Users\\Josiah Randleman\\IdeaProjects\\SP21-G4-null-pointers\\resources\\Users");
+            ChoiceBox<String> c = new ChoiceBox<>();
+            File folder = new File("./resources/Users");
             File[] listOfFiles = folder.listFiles();
 
-            for(int i = 0; i < listOfFiles.length; i++) {
-                c.getItems().add(listOfFiles[i].getName());
+            for (File file : listOfFiles) {
+                c.getItems().add(file.getName());
             }
             confirm.setOnAction(confirmUser -> {
                 try {
-                    postLoginAction.accept(new User((String) c.getValue()));
+                    postLoginAction.accept(new User(c.getValue()));
                 } catch (IOException o) {
                     // TODO react to Special_Days file not being found
                     System.out.println("could not find Special_Days file!");
@@ -149,7 +123,6 @@ public class LoginPane extends FlowPane  {
         clear.setStyle("-fx-background-color: rgba(205,18,18,0.75); ");
 
         Label l = new Label("");
-        TextField b = new TextField("initial text");
         EventHandler<ActionEvent> event = e -> {
             getChildren().addAll(new Label("Please enter your first and last name:"));
             TextField tfMi = new TextField();
@@ -161,48 +134,32 @@ public class LoginPane extends FlowPane  {
 
 
 
-            a.setOnAction(new EventHandler<ActionEvent>() {
-
-                public void handle(ActionEvent e) {
-                    String full_name;
-                    full_name = tfMi.getText();
-                    LocalDate date1;
-                    date1 = d.getValue();
-
-
+            a.setOnAction(event1 -> {
                     if ((tfMi.getText() != null && !tfMi.getText().isEmpty())) {
-                        User user = new User(full_name, date1);
                         clearWindow();
                         restart(postLoginAction);
                     }
-                }
-
             });
 
             //Setting an action for the Clear button
-            clear.setOnAction(new EventHandler<ActionEvent>() {
-
-                // @Override
-                public void handle(ActionEvent e) {
+            clear.setOnAction(event1 -> {
                     tfMi.setText("");
                     d.getEditor().clear();
-                }
             });
-
         };
 
         EventHandler<ActionEvent> event1 = e -> {
             Label z = new Label("This is a choice box");
-            ChoiceBox c = new ChoiceBox();
-            File folder = new File("C:\\Users\\Josiah Randleman\\IdeaProjects\\SP21-G4-null-pointers\\resources\\Users");
+            ChoiceBox<String> c = new ChoiceBox<>();
+            File folder = new File("./resources/Users");
             File[] listOfFiles = folder.listFiles();
 
-            for(int i = 0; i < listOfFiles.length; i++) {
-                c.getItems().add(listOfFiles[i].getName());
+            for (File file : listOfFiles) {
+                c.getItems().add(file.getName());
             }
             confirm.setOnAction(confirmUser -> {
                 try {
-                    postLoginAction.accept(new User((String) c.getValue()));
+                    postLoginAction.accept(new User(c.getValue()));
                 } catch (IOException o) {
                     // TODO react to Special_Days file not being found
                     System.out.println("could not find Special_Days file!");
