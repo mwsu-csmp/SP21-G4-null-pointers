@@ -33,13 +33,14 @@ public class CalendarPane extends BorderPane {
         Button nextyear = new Button(">>");
         Button previousyear = new Button("<<");
         Button addevent = new Button("Add Event");
+        Button countdown = new Button("Countdown");
         Button saveandexit = new Button("Save and exit");
         user.setCalendar(CalendarBody);
 
         HBox leftButtons = new HBox(previousyear, previousmonth);
         HBox rightButtons = new HBox(nextmonth, nextyear);
         HBox topSector = new HBox(leftButtons, datetext, rightButtons);
-        HBox bottomSector = new HBox(addevent, saveandexit);
+        HBox bottomSector = new HBox(addevent, countdown, saveandexit);
 
         nextmonth.setOnAction(event -> {
             CalendarBody.moveMonthForwards();
@@ -64,6 +65,15 @@ public class CalendarPane extends BorderPane {
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             Scene scene = new Scene(new EventPane(user, closestage -> stage.close()));
+            stage.setAlwaysOnTop(true);
+            stage.setResizable(false);
+            stage.setScene(scene);
+            stage.show();
+        });
+        countdown.setOnAction(event -> {
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            Scene scene = new Scene(new Countdown(user, closestage -> stage.close()));
             stage.setAlwaysOnTop(true);
             stage.setResizable(false);
             stage.setScene(scene);
