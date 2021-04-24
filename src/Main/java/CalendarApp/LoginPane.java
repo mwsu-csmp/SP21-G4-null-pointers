@@ -9,6 +9,7 @@ import javafx.scene.layout.GridPane;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.function.Consumer;
 
 
@@ -29,21 +30,21 @@ public class LoginPane extends FlowPane  {
 
         Button y = new Button("Yes");
         Button n = new Button("No");
-        Button a = new Button("Add");
+        Button add = new Button("Add");
         Button confirm = new Button("Confirm");
         Button clear = new Button("Clear");
-        a.setStyle("-fx-background-color: #06f642; ");
+        add.setStyle("-fx-background-color: #06f642; ");
         clear.setStyle("-fx-background-color: rgba(205,18,18,0.75); ");
 
         Label l = new Label("");
         EventHandler<ActionEvent> event = e -> {
             getChildren().addAll(new Label("Please enter your first and last name:"));
-            TextField tfMi = new TextField();
-            tfMi.setPrefColumnCount(10);
-            getChildren().addAll(tfMi);
+            TextField name = new TextField();
+            name.setPrefColumnCount(10);
+            getChildren().addAll(name);
             getChildren().addAll(new Label("Please enter your date of birth:"));
             DatePicker d = new DatePicker();
-            getChildren().addAll(d, a, clear);
+            getChildren().addAll(d, add, clear);
 
             final Label label = new Label();
             GridPane.setConstraints(label, 0, 3);
@@ -51,18 +52,28 @@ public class LoginPane extends FlowPane  {
             getChildren().add(label);
 
 
-            a.setOnAction(event1 -> {
-                    if ((tfMi.getText() != null && !tfMi.getText().isEmpty())) {
+            add.setOnAction(new EventHandler<ActionEvent>() {
+
+                public void handle(ActionEvent e) {
+                    String full_name;
+                    full_name = name.getText();
+                    LocalDate date1;
+                    date1 = d.getValue();
+
+
+                    if ((name.getText() != null && !name.getText().isEmpty())) {
+                        User user = new User(full_name, date1);
                         clearWindow();
                         restart(postLoginAction);
                     }
-                });
+                }
+            });
 
             //Setting an action for the Clear button
             clear.setOnAction(event1 -> {
-                    tfMi.setText("");
-                    d.getEditor().clear();
-                });
+                name.setText("");
+                d.getEditor().clear();
+            });
         };
         EventHandler<ActionEvent> event1 = e -> {
             Label z = new Label("This is a choice box");
@@ -96,8 +107,8 @@ public class LoginPane extends FlowPane  {
 
         l.setTranslateX(10);
         l.setTranslateY(-3);
-        a.setTranslateX(2);
-        a.setTranslateY(-1);
+        add.setTranslateX(2);
+        add.setTranslateY(-1);
         clear.setTranslateX(348);
         clear.setTranslateY(-65);
         y.setOnAction(event);
@@ -116,35 +127,45 @@ public class LoginPane extends FlowPane  {
 
         Button y = new Button("Yes");
         Button n = new Button("No");
-        Button a = new Button("Add");
+        Button add = new Button("Add");
         Button clear = new Button("Clear");
         Button confirm = new Button("Confirm");
-        a.setStyle("-fx-background-color: #06f642; ");
+        add.setStyle("-fx-background-color: #06f642; ");
         clear.setStyle("-fx-background-color: rgba(205,18,18,0.75); ");
 
         Label l = new Label("");
         EventHandler<ActionEvent> event = e -> {
             getChildren().addAll(new Label("Please enter your first and last name:"));
-            TextField tfMi = new TextField();
-            tfMi.setPrefColumnCount(10);
-            getChildren().addAll(tfMi);
+            TextField name = new TextField();
+            name.setPrefColumnCount(10);
+            getChildren().addAll(name);
             getChildren().addAll(new Label("Please enter your date of birth:"));
             DatePicker d = new DatePicker();
-            getChildren().addAll(d, a, clear);
+            getChildren().addAll(d, add, clear);
 
 
 
-            a.setOnAction(event1 -> {
-                    if ((tfMi.getText() != null && !tfMi.getText().isEmpty())) {
+            add.setOnAction(new EventHandler<ActionEvent>() {
+
+                public void handle(ActionEvent e) {
+                    String full_name;
+                    full_name = name.getText();
+                    LocalDate date1;
+                    date1 = d.getValue();
+
+
+                    if ((name.getText() != null && !name.getText().isEmpty())) {
+                        User user = new User(full_name, date1);
                         clearWindow();
                         restart(postLoginAction);
                     }
+                }
             });
 
             //Setting an action for the Clear button
             clear.setOnAction(event1 -> {
-                    tfMi.setText("");
-                    d.getEditor().clear();
+                name.setText("");
+                d.getEditor().clear();
             });
         };
 
@@ -182,8 +203,8 @@ public class LoginPane extends FlowPane  {
 
         l.setTranslateX(10);
         l.setTranslateY(-3);
-        a.setTranslateX(2);
-        a.setTranslateY(-1);
+        add.setTranslateX(2);
+        add.setTranslateY(-1);
         clear.setTranslateX(348);
         clear.setTranslateY(-65);
         y.setOnAction(event);
