@@ -91,7 +91,6 @@ public class LoginPane extends FlowPane  {
                     label.setTranslateX(30);
                     getChildren().add(label);
                     // TODO react to Special_Days file not being found   !!!I added a label to fix this!!!
-                    System.out.println("could not find Special_Days file!");
                 }
             });
             getChildren().add(confirm);
@@ -183,7 +182,6 @@ public class LoginPane extends FlowPane  {
                     label.setTranslateX(30);
                     getChildren().add(label);
                     // TODO react to Special_Days file not being found   !!!I added a label to fix this!!!
-                    System.out.println("could not find Special_Days file!");
                 }
             });
             getChildren().add(confirm);

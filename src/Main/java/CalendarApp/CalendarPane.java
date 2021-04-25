@@ -3,6 +3,7 @@ package CalendarApp;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.BorderPane;
@@ -42,6 +43,16 @@ public class CalendarPane extends BorderPane {
         HBox topSector = new HBox(leftButtons, datetext, rightButtons);
         HBox bottomSector = new HBox(addevent, countdown, saveandexit);
 
+        countdown.setOnAction(event -> {
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            Scene scene = new Scene(new Countdown(user, closestage -> stage.close()));
+            stage.setAlwaysOnTop(true);
+            stage.setResizable(false);
+            stage.setScene(scene);
+            stage.show();
+        });
+
         nextmonth.setOnAction(event -> {
             CalendarBody.moveMonthForwards();
             datetext.setText(CalendarBody.dateToString());
@@ -65,15 +76,6 @@ public class CalendarPane extends BorderPane {
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             Scene scene = new Scene(new EventPane(user, closestage -> stage.close()));
-            stage.setAlwaysOnTop(true);
-            stage.setResizable(false);
-            stage.setScene(scene);
-            stage.show();
-        });
-        countdown.setOnAction(event -> {
-            Stage stage = new Stage();
-            stage.initModality(Modality.APPLICATION_MODAL);
-            Scene scene = new Scene(new Countdown(user, closestage -> stage.close()));
             stage.setAlwaysOnTop(true);
             stage.setResizable(false);
             stage.setScene(scene);
