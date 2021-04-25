@@ -3,9 +3,14 @@ package CalendarApp;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -69,7 +74,7 @@ public class LoginPane extends FlowPane  {
             });
         };
         EventHandler<ActionEvent> event1 = e -> {
-            Label user_prompt = new Label("This is a choice box");
+            Label user_prompt = new Label("Please select a name:");
             ChoiceBox<String> choice = new ChoiceBox<>();
             File folder = new File("./resources/Users");
             File[] listOfFiles = folder.listFiles();
@@ -161,7 +166,7 @@ public class LoginPane extends FlowPane  {
         };
 
         EventHandler<ActionEvent> event1 = e -> {
-            Label user_prompt = new Label("This is a choice box");
+            Label user_prompt = new Label("Please select a name:");
             ChoiceBox<String> choice = new ChoiceBox<>();
             File folder = new File("./resources/Users");
             File[] listOfFiles = folder.listFiles();
@@ -194,7 +199,6 @@ public class LoginPane extends FlowPane  {
         };
 
 
-
         add.setAlignment(Pos.BASELINE_CENTER);
         clear.setAlignment(Pos.BASELINE_CENTER);
         yes.setOnAction(event);
@@ -202,4 +206,5 @@ public class LoginPane extends FlowPane  {
         getChildren().addAll(yes, no);
 
     }
+
 }
