@@ -1,12 +1,11 @@
 package CalendarApp;
 
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.layout.GridPane;
-
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -28,41 +27,35 @@ public class LoginPane extends FlowPane  {
         setVgap(5);
         getChildren().addAll(new Label("Are you a first time user?"));
 
-        Button y = new Button("Yes");
-        Button n = new Button("No");
+        Button yes = new Button("Yes");
+        Button no = new Button("No");
         Button add = new Button("Add");
         Button confirm = new Button("Confirm");
         Button clear = new Button("Clear");
         add.setStyle("-fx-background-color: #06f642; ");
         clear.setStyle("-fx-background-color: rgba(205,18,18,0.75); ");
 
-        Label l = new Label("");
+
         EventHandler<ActionEvent> event = e -> {
             getChildren().addAll(new Label("Please enter your first and last name:"));
             TextField name = new TextField();
             name.setPrefColumnCount(10);
             getChildren().addAll(name);
             getChildren().addAll(new Label("Please enter your date of birth:"));
-            DatePicker d = new DatePicker();
-            getChildren().addAll(d, add, clear);
-
-            final Label label = new Label();
-            GridPane.setConstraints(label, 0, 3);
-            GridPane.setColumnSpan(label, 2);
-            getChildren().add(label);
-
+            DatePicker date_holder = new DatePicker();
+            getChildren().addAll(date_holder, add, clear);
 
             add.setOnAction(new EventHandler<ActionEvent>() {
 
                 public void handle(ActionEvent e) {
                     String full_name;
                     full_name = name.getText();
-                    LocalDate date1;
-                    date1 = d.getValue();
+                    LocalDate date;
+                    date = date_holder.getValue();
 
 
                     if ((name.getText() != null && !name.getText().isEmpty())) {
-                        User user = new User(full_name, date1);
+                        User user = new User(full_name, date);
                         clearWindow();
                         restart(postLoginAction);
                     }
@@ -72,52 +65,50 @@ public class LoginPane extends FlowPane  {
             //Setting an action for the Clear button
             clear.setOnAction(event1 -> {
                 name.setText("");
-                d.getEditor().clear();
+                date_holder.getEditor().clear();
             });
         };
         EventHandler<ActionEvent> event1 = e -> {
-            Label z = new Label("This is a choice box");
-            ChoiceBox<String> c = new ChoiceBox<>();
+            Label user_prompt = new Label("This is a choice box");
+            ChoiceBox<String> choice = new ChoiceBox<>();
             File folder = new File("./resources/Users");
             File[] listOfFiles = folder.listFiles();
 
             for (File file : listOfFiles) {
-                c.getItems().add(file.getName());
+                choice.getItems().add(file.getName());
             }
             confirm.setOnAction(confirmUser -> {
                 try {
-                    postLoginAction.accept(new User(c.getValue()));
+                    postLoginAction.accept(new User(choice.getValue()));
                 } catch (IOException o) {
-                    // TODO react to Special_Days file not being found
+                    final Label label = new Label("Please select a name from the box!");
+                    label.setTranslateY(20);
+                    label.setTranslateX(30);
+                    getChildren().add(label);
+                    // TODO react to Special_Days file not being found   !!!I added a label to fix this!!!
                     System.out.println("could not find Special_Days file!");
                 }
             });
             getChildren().add(confirm);
-            getChildren().add(z);
-            getChildren().add(c);
-            z.setTranslateX(-280);           //TODO Fix add a GridPane
-            z.setTranslateY(30);
-            c.setTranslateX(115);
-            c.setTranslateY(0);
-            confirm.setTranslateX(10);
+            getChildren().add(user_prompt);
+            getChildren().add(choice);
+            user_prompt.setTranslateX(-280);                        //TODO Fix add a GridPane
+            user_prompt.setTranslateY(30);
+            choice.setTranslateX(115);
+            choice.setTranslateY(0);
+            confirm.setTranslateX(30);
             confirm.setTranslateY(30);
 
         };
 
-
-        l.setTranslateX(10);
-        l.setTranslateY(-3);
-        add.setTranslateX(2);
-        add.setTranslateY(-1);
-        clear.setTranslateX(348);
-        clear.setTranslateY(-65);
-        y.setOnAction(event);
-        n.setOnAction(event1);
-        getChildren().addAll(y, n, l);
+        add.setAlignment(Pos.BASELINE_CENTER);
+        clear.setAlignment(Pos.BASELINE_RIGHT);
+        yes.setOnAction(event);
+        no.setOnAction(event1);
+        getChildren().addAll(yes, no);
 
     }
 
-    // TODO: Create more meaningful variable names
     public LoginPane(Consumer<User> postLoginAction) {
         setPadding(new Insets(100, 150, 150, 200));
         setHgap(5);
@@ -125,23 +116,23 @@ public class LoginPane extends FlowPane  {
         getChildren().addAll(new Label("Are you a first time user?"));
 
 
-        Button y = new Button("Yes");
-        Button n = new Button("No");
+        Button yes = new Button("Yes");
+        Button no = new Button("No");
         Button add = new Button("Add");
         Button clear = new Button("Clear");
         Button confirm = new Button("Confirm");
         add.setStyle("-fx-background-color: #06f642; ");
         clear.setStyle("-fx-background-color: rgba(205,18,18,0.75); ");
 
-        Label l = new Label("");
+
         EventHandler<ActionEvent> event = e -> {
             getChildren().addAll(new Label("Please enter your first and last name:"));
             TextField name = new TextField();
             name.setPrefColumnCount(10);
             getChildren().addAll(name);
             getChildren().addAll(new Label("Please enter your date of birth:"));
-            DatePicker d = new DatePicker();
-            getChildren().addAll(d, add, clear);
+            DatePicker date_holder = new DatePicker();
+            getChildren().addAll(date_holder, add, clear);
 
 
 
@@ -150,12 +141,12 @@ public class LoginPane extends FlowPane  {
                 public void handle(ActionEvent e) {
                     String full_name;
                     full_name = name.getText();
-                    LocalDate date1;
-                    date1 = d.getValue();
+                    LocalDate date;
+                    date = date_holder.getValue();
 
 
                     if ((name.getText() != null && !name.getText().isEmpty())) {
-                        User user = new User(full_name, date1);
+                        User user = new User(full_name, date);
                         clearWindow();
                         restart(postLoginAction);
                     }
@@ -165,34 +156,38 @@ public class LoginPane extends FlowPane  {
             //Setting an action for the Clear button
             clear.setOnAction(event1 -> {
                 name.setText("");
-                d.getEditor().clear();
+                date_holder.getEditor().clear();
             });
         };
 
         EventHandler<ActionEvent> event1 = e -> {
-            Label z = new Label("This is a choice box");
-            ChoiceBox<String> c = new ChoiceBox<>();
+            Label user_prompt = new Label("This is a choice box");
+            ChoiceBox<String> choice = new ChoiceBox<>();
             File folder = new File("./resources/Users");
             File[] listOfFiles = folder.listFiles();
 
             for (File file : listOfFiles) {
-                c.getItems().add(file.getName());
+                choice.getItems().add(file.getName());
             }
             confirm.setOnAction(confirmUser -> {
                 try {
-                    postLoginAction.accept(new User(c.getValue()));
+                    postLoginAction.accept(new User(choice.getValue()));
                 } catch (IOException o) {
-                    // TODO react to Special_Days file not being found
+                    final Label label = new Label("Please select a name from the box!");
+                    label.setTranslateY(20);
+                    label.setTranslateX(30);
+                    getChildren().add(label);
+                    // TODO react to Special_Days file not being found   !!!I added a label to fix this!!!
                     System.out.println("could not find Special_Days file!");
                 }
             });
             getChildren().add(confirm);
-            getChildren().add(z);
-            getChildren().add(c);
-            z.setTranslateX(-280);           //TODO Fix add a GridPane
-            z.setTranslateY(30);
-            c.setTranslateX(115);
-            c.setTranslateY(0);
+            getChildren().add(user_prompt);
+            getChildren().add(choice);
+            user_prompt.setTranslateX(-280);                        //TODO Fix add a GridPane
+            user_prompt.setTranslateY(30);
+            choice.setTranslateX(115);
+            choice.setTranslateY(0);
             confirm.setTranslateX(30);
             confirm.setTranslateY(30);
 
@@ -200,16 +195,11 @@ public class LoginPane extends FlowPane  {
 
 
 
-
-        l.setTranslateX(10);
-        l.setTranslateY(-3);
-        add.setTranslateX(2);
-        add.setTranslateY(-1);
-        clear.setTranslateX(348);
-        clear.setTranslateY(-65);
-        y.setOnAction(event);
-        n.setOnAction(event1);
-        getChildren().addAll(y, n, l);
+        add.setAlignment(Pos.BASELINE_CENTER);
+        clear.setAlignment(Pos.BASELINE_CENTER);
+        yes.setOnAction(event);
+        no.setOnAction(event1);
+        getChildren().addAll(yes, no);
 
     }
 }
