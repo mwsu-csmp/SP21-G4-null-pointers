@@ -134,5 +134,9 @@ public class Special_Day {
         return isprivate;
     }
 
+    @Override
+    public String toString() {
+        return getTitle();
+    }
 
 }
