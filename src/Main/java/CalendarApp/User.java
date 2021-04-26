@@ -73,19 +73,19 @@ public class User {
 
     public void saveSpecial_Days() throws IOException {
         File saveFile = new File("./resources/Users/" + name + "/specialdays.txt");
-            var out = new FileWriter(saveFile);
-            for (Special_Day special_day : special_days) {
-                out.write(special_day.serialize() + "\n");
-            }
-            out.close();
+        var out = new FileWriter(saveFile);
+        for (Special_Day special_day : special_days) {
+            out.write(special_day.serialize() + "\n");
+        }
+        out.close();
     }
 
     private void makeUserDirectory(){
         File directory = new File("./resources/Users/" + name);
-         if (!directory.mkdir()) {
-             System.out.println("Could not make directory");
-         }
+        if (!directory.mkdir()) {
+            System.out.println("Could not make directory");
+        }
     }
 
-        // TODO: Add ability to Serialize special day into a string for output
+    // TODO: Add ability to Serialize special day into a string for output
 }

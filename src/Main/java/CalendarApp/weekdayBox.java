@@ -7,15 +7,15 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class weekdayBox extends StackPane {
-   public weekdayBox(String day) {
-       Rectangle outline = new Rectangle();
-       Label dayLabel = new Label(day);
-       outline.setFill(null);
-       outline.setStroke(Color.BLACK);
-       outline.setWidth(150);
-       outline.setHeight(25);
+    public weekdayBox(String day) {
+        Rectangle outline = new Rectangle();
+        Label dayLabel = new Label(day);
+        outline.setFill(null);
+        outline.setStroke(Color.BLACK);
+        outline.setWidth(150);
+        outline.setHeight(25);
 
-       getChildren().addAll(outline, dayLabel);
-       setAlignment(dayLabel, Pos.CENTER);
-   }
+        getChildren().addAll(outline, dayLabel);
+        setAlignment(dayLabel, Pos.CENTER);
+    }
 }

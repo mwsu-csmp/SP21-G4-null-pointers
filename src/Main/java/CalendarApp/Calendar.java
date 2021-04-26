@@ -64,11 +64,11 @@ public class Calendar extends GridPane {
 
         for (int i = 1; i < 7; i++)
             for (int j = 0; j < 7; j++){
-                    currentmonth = currentday.getMonthValue() == month;
-                    add(new CalendarBox(currentday, user, currentmonth), j, i);
-                    currentday = currentday.plusDays(1);
-                }
-        }
+                currentmonth = currentday.getMonthValue() == month;
+                add(new CalendarBox(currentday, user, currentmonth), j, i);
+                currentday = currentday.plusDays(1);
+            }
+    }
 
     public void populateCalendar(){
         populateCalendar(month, year);

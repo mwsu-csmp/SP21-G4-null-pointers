@@ -21,7 +21,7 @@ public class Special_Day {
         this.title = title;
         this.startdate = startdate;
         this.enddate = enddate;
-        if (!isallday){
+        if (!isallday) {
             this.starttime = starttime;
             this.endtime = endtime;
         } else {
@@ -39,14 +39,14 @@ public class Special_Day {
             throw new IllegalArgumentException("Start date is after end date");
     }
 
-    public Special_Day(String csvDesc) throws IllegalArgumentException{
+    public Special_Day(String csvDesc) throws IllegalArgumentException {
         try {
             var fields = Arrays.asList(csvDesc.split(","));
             var newfields = new ArrayList<String>();
             if (fields.size() != 9) throw new IllegalArgumentException("Improper string length");
 
             for (String field : fields) {
-                if ((field.charAt(0) != '\"' || field.charAt(field.length()-1) != '\"'))
+                if ((field.charAt(0) != '\"' || field.charAt(field.length() - 1) != '\"'))
                     throw new IllegalArgumentException();
                 else newfields.add(field.strip().substring(1, field.length() - 1));
             }
@@ -62,8 +62,7 @@ public class Special_Day {
                 starttime = LocalTime.parse(newfields.get(2), DateTimeFormatter.ofPattern("hh:mm a"));
                 endtime = LocalTime.parse(newfields.get(4), DateTimeFormatter.ofPattern("hh:mm a"));
                 isallday = false;
-            }
-            else {
+            } else {
                 starttime = null;
                 endtime = null;
                 isallday = true;
@@ -106,37 +105,51 @@ public class Special_Day {
                 returnlist.get(7) + "\",\"" +
                 returnlist.get(8) + "\"";
     }
+
     public LocalDate getStartdate() {
         return startdate;
     }
+
     public LocalDate getEnddate() {
         return enddate;
     }
+
     public LocalTime getStarttime() {
         return starttime;
     }
+
     public LocalTime getEndtime() {
         return endtime;
     }
+
     public String getTitle() {
         return title;
     }
+
     public String getDescription() {
         return description;
     }
+
     public String getLocation() {
         return location;
     }
+
     public boolean isAllDay() {
         return isallday;
     }
+
     public boolean isPrivate() {
         return isprivate;
     }
+
+    public boolean isRecurring() {
+        return isrecurring;
+    }
+
 
     @Override
     public String toString() {
         return getTitle();
     }
-
 }
+

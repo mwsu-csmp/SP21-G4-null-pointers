@@ -48,16 +48,16 @@ public class EventPane extends GridPane {
         add(addButton, 1, 8);
 
         addButton.setOnAction(event -> {
-                    try {
-                        user.addSpecialDay(generateSpecial_Day());
-                        calendar.populateCalendar();
-                        postAddEventAction.accept(true);
-                    } catch (IllegalArgumentException e) {
-                        errorMessage.setText("ERROR: " + e.getMessage());
-                    } catch (DateTimeParseException e) {
-                        errorMessage.setText("ERROR: Date format is incorrect, try hh:mm AM/PM format");
-                    }
-                });
+            try {
+                user.addSpecialDay(generateSpecial_Day());
+                calendar.populateCalendar();
+                postAddEventAction.accept(true);
+            } catch (IllegalArgumentException e) {
+                errorMessage.setText("ERROR: " + e.getMessage());
+            } catch (DateTimeParseException e) {
+                errorMessage.setText("ERROR: Date format is incorrect, try hh:mm AM/PM format");
+            }
+        });
         populateEventPane();
     }
 
@@ -80,14 +80,14 @@ public class EventPane extends GridPane {
 
         ArrayList<Node> nodes = new ArrayList<>(
                 Arrays.asList(eventTitle,
-                            startDate,
-                            endDate,
-                            startTime,
-                            endTime,
-                            isAllDay,
-                            isPrivate,
-                            eventDescription,
-                            eventLocation));
+                        startDate,
+                        endDate,
+                        startTime,
+                        endTime,
+                        isAllDay,
+                        isPrivate,
+                        eventDescription,
+                        eventLocation));
 
         for (Node node : nodes) {
             node.setDisable(true);
