@@ -5,7 +5,6 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import java.time.LocalDate;
@@ -14,8 +13,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.function.Consumer;
 
 
-public class Countdown extends GridPane {
-    //private final Calendar calendar;
+public class Countdown extends StackPane {
 
     public Countdown(User user, Consumer<User> postLoginAction) {
 

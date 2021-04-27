@@ -27,10 +27,10 @@ public class EventPane extends GridPane {
     private final TextField eventDescription = new TextField();
     private final TextField eventLocation = new TextField();
     private final CheckBox isPrivate = new CheckBox();
+    private final CheckBox isRecurring = new CheckBox();
     private final Label errorMessage = new Label("");
     private final HBox times = new HBox();
     private final Calendar calendar;
-    private final CheckBox isRecurring = new CheckBox();
 
     /** Creates an EventPane for making a new Special_Day
      *
@@ -87,7 +87,6 @@ public class EventPane extends GridPane {
                         endTime,
                         isAllDay,
                         isPrivate,
-                        isRecurring,
                         eventDescription,
                         eventLocation));
 
@@ -103,7 +102,7 @@ public class EventPane extends GridPane {
 
         HBox choices = new HBox();
         choices.getChildren().addAll(edit, cancel, confirm);
-        add(choices, 0, 8, 2, 1);
+        add(choices, 0, 9, 2, 1);
 
         edit.setOnAction(event ->{
             edit.setVisible(false);
@@ -179,8 +178,8 @@ public class EventPane extends GridPane {
         add(isPrivateLabel, 0, 7);
         add(isPrivate, 1, 7);
 
-        Label isRecuringLabel = new Label("Recurring");
-        add(isRecuringLabel, 0, 8);
+        Label isRecurringLabel = new Label("Recurring");
+        add(isRecurringLabel, 0, 8);
         add(isRecurring, 1, 8);
 
         add(errorMessage, 0, 10, 2, 1);
@@ -201,7 +200,6 @@ public class EventPane extends GridPane {
         }
         isAllDay.setSelected(special_day.isAllDay());
         isPrivate.setSelected(special_day.isPrivate());
-        isRecurring.setSelected(special_day.isRecurring());
         eventDescription.setText(special_day.getDescription());
         eventLocation.setText(special_day.getLocation());
 

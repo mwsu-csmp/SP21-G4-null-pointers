@@ -116,6 +116,8 @@ public class LoginPane extends FlowPane  {
 
 /** This is the main constructor.  Here is where the login screen is set. */
     public LoginPane(Consumer<User> postLoginAction) {
+        //Background background = new Background(new BackgroundImage(new Image("./resources/background.jpg"), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT));
+        //setBackground(background);
         setPadding(new Insets(100, 150, 150, 200));
         setHgap(5);
         setVgap(5);

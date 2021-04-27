@@ -57,8 +57,6 @@ public class Special_Day {
                 throw new IllegalArgumentException("All Day Event boolean incorrectly formatted");
             if (!newfields.get(8).equals("TRUE") && !newfields.get(8).equals("FALSE"))
                 throw new IllegalArgumentException("Private boolean incorrectly formatted");
-            if (!newfields.get(9).equals("TRUE") && !newfields.get(9).equals("FALSE"))
-                throw new IllegalArgumentException("Private boolean incorrectly formatted");
 
             title = newfields.get(0);
             startdate = LocalDate.parse(newfields.get(1), DateTimeFormatter.ofPattern("MM/dd/yyyy"));
