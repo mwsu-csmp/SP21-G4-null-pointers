@@ -18,10 +18,15 @@ public class LoginPane extends FlowPane  {
 
     // TODO: possibly user could pick from list of created users, or create a new one. That way less typing is needed.
 
+    /**
+     * This class creates the foundation of the login screen for the user.
+     */
+ /** This method will clear the window of the pane */
     public void clearWindow() {
         getChildren().clear();
     }
 
+    /** For multiple user inputs the scene needs to be restated to be able to access it again. */
     public void restart(Consumer<User> postLoginAction) {
         setPadding(new Insets(100, 150, 150, 200));
         setHgap(5);
@@ -109,6 +114,7 @@ public class LoginPane extends FlowPane  {
 
     }
 
+/** This is the main constructor.  Here is where the login screen is set. */
     public LoginPane(Consumer<User> postLoginAction) {
         setPadding(new Insets(100, 150, 150, 200));
         setHgap(5);
