@@ -31,7 +31,6 @@ public class Countdown extends GridPane {
         ChoiceBox<Special_Day> choice2 = new ChoiceBox<>();
 
         for (Special_Day special_day : user.getSpecial_Days()) {
-            System.out.println(special_day.getTitle());
             choice.getItems().add(special_day);
         }
         try {
@@ -41,14 +40,12 @@ public class Countdown extends GridPane {
         }
 
         for (Special_Day special_day : user.getSpecial_Days()) {
-            System.out.println(special_day.getTitle());
             choice2.getItems().add(special_day);
         }
 
         calculate.setOnAction(event -> {
                 Long diff = choice.getValue().getStartdate().until(choice2.getValue().getStartdate(), ChronoUnit.DAYS);
                 display.setText("There are " + diff + " days between " + choice.getValue() + " and " + choice2.getValue());
-                System.out.println(diff);
             });
 
         clear.setOnAction(event1 -> {
@@ -66,8 +63,6 @@ public class Countdown extends GridPane {
         hbox.setAlignment(Pos.CENTER);
         display.setAlignment(Pos.BOTTOM_CENTER);
         display.setTranslateY(50);
-
-
 
     }
 }
