@@ -152,4 +152,3 @@ public class Special_Day {
         return getTitle();
     }
 }
-

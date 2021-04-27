@@ -28,4 +28,3 @@ public class Main extends Application {
         // TODO: Implement LoginPane as starting Pane, then move to CalendarPane upon initialization
     }
 }
-

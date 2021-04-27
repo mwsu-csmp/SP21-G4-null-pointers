@@ -5,6 +5,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import java.time.LocalDate;
@@ -31,6 +32,7 @@ public class Countdown extends GridPane {
         ChoiceBox<Special_Day> choice2 = new ChoiceBox<>();
 
         for (Special_Day special_day : user.getSpecial_Days()) {
+            System.out.println(special_day.getTitle());
             choice.getItems().add(special_day);
         }
         try {
@@ -40,13 +42,15 @@ public class Countdown extends GridPane {
         }
 
         for (Special_Day special_day : user.getSpecial_Days()) {
+            System.out.println(special_day.getTitle());
             choice2.getItems().add(special_day);
         }
 
         calculate.setOnAction(event -> {
-                Long diff = choice.getValue().getStartdate().until(choice2.getValue().getStartdate(), ChronoUnit.DAYS);
-                display.setText("There are " + diff + " days between " + choice.getValue() + " and " + choice2.getValue());
-            });
+            Long diff = choice.getValue().getStartdate().until(choice2.getValue().getStartdate(), ChronoUnit.DAYS);
+            display.setText("There are " + diff + " days between " + choice.getValue() + " and " + choice2.getValue());
+            System.out.println(diff);
+        });
 
         clear.setOnAction(event1 -> {
             choice.getSelectionModel().clearSelection();
@@ -64,6 +68,7 @@ public class Countdown extends GridPane {
         display.setAlignment(Pos.BOTTOM_CENTER);
         display.setTranslateY(50);
 
+
+
     }
 }
-
