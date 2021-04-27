@@ -22,7 +22,7 @@ public class User {
         if (birthday == null) throw new IllegalArgumentException("Bad birthday!");
         this.name = name;
         special_days = new ArrayList<>();
-        special_days.add(new Special_Day("My birthday!", birthday, null, birthday, null, true, "It's my birthday!", null, true));
+        special_days.add(new Special_Day("My birthday!", birthday, null, birthday, null, true, "It's my birthday!", null, true, true));
         makeUserDirectory();
         try {
             saveSpecial_Days();

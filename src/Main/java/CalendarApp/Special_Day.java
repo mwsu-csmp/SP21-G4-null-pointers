@@ -16,8 +16,9 @@ public class Special_Day {
     private final String description;
     private final String location;
     private final boolean isprivate;
+    private final boolean isrecurring;
 
-    public Special_Day(String title, LocalDate startdate, LocalTime starttime, LocalDate enddate, LocalTime endtime, boolean isallday, String description, String location, boolean isprivate) throws IllegalArgumentException {
+    public Special_Day(String title, LocalDate startdate, LocalTime starttime, LocalDate enddate, LocalTime endtime, boolean isallday, String description, String location, boolean isprivate, boolean isrecurring) throws IllegalArgumentException {
         this.title = title;
         this.startdate = startdate;
         this.enddate = enddate;
@@ -32,6 +33,7 @@ public class Special_Day {
         this.description = description;
         this.location = location;
         this.isprivate = isprivate;
+        this.isrecurring = isrecurring;
 
         if (startdate == null || enddate == null)
             throw new IllegalArgumentException("One or more dates is not formatted properly");
@@ -43,7 +45,7 @@ public class Special_Day {
         try {
             var fields = Arrays.asList(csvDesc.split(","));
             var newfields = new ArrayList<String>();
-            if (fields.size() != 9) throw new IllegalArgumentException("Improper string length");
+            if (fields.size() != 10) throw new IllegalArgumentException("Improper string length");
 
             for (String field : fields) {
                 if ((field.charAt(0) != '\"' || field.charAt(field.length() - 1) != '\"'))
@@ -54,6 +56,8 @@ public class Special_Day {
             if (!newfields.get(5).equals("TRUE") && !newfields.get(5).equals("FALSE"))
                 throw new IllegalArgumentException("All Day Event boolean incorrectly formatted");
             if (!newfields.get(8).equals("TRUE") && !newfields.get(8).equals("FALSE"))
+                throw new IllegalArgumentException("Private boolean incorrectly formatted");
+            if (!newfields.get(9).equals("TRUE") && !newfields.get(9).equals("FALSE"))
                 throw new IllegalArgumentException("Private boolean incorrectly formatted");
 
             title = newfields.get(0);
@@ -71,6 +75,7 @@ public class Special_Day {
             description = newfields.get(6);
             location = newfields.get(7);
             isprivate = Boolean.parseBoolean(newfields.get(8));
+            isrecurring = Boolean.parseBoolean(newfields.get(9));
 
         } catch (Exception e) {
             throw new IllegalArgumentException(e.getMessage());
@@ -94,6 +99,8 @@ public class Special_Day {
         returnlist.add(location);
         if (isprivate) returnlist.add("TRUE");
         else returnlist.add("FALSE");
+        if (isrecurring) returnlist.add("TRUE");
+        else returnlist.add("FALSE");
 
         return "\"" + returnlist.get(0) + "\",\"" +
                 returnlist.get(1) + "\",\"" +
@@ -103,7 +110,8 @@ public class Special_Day {
                 returnlist.get(5) + "\",\"" +
                 returnlist.get(6) + "\",\"" +
                 returnlist.get(7) + "\",\"" +
-                returnlist.get(8) + "\"";
+                returnlist.get(8) + "\",\"" +
+                returnlist.get(9) + "\"";
     }
 
     public LocalDate getStartdate() {
@@ -152,3 +160,4 @@ public class Special_Day {
         return getTitle();
     }
 }
+

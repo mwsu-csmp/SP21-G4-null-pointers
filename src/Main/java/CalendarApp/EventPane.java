@@ -30,6 +30,7 @@ public class EventPane extends GridPane {
     private final Label errorMessage = new Label("");
     private final HBox times = new HBox();
     private final Calendar calendar;
+    private final CheckBox isRecurring = new CheckBox();
 
     /** Creates an EventPane for making a new Special_Day
      *
@@ -45,7 +46,7 @@ public class EventPane extends GridPane {
         add(scenetitle, 0, 0, 2, 1);
 
         Button addButton = new Button("Add");
-        add(addButton, 1, 8);
+        add(addButton, 1, 9);
 
         addButton.setOnAction(event -> {
             try {
@@ -86,6 +87,7 @@ public class EventPane extends GridPane {
                         endTime,
                         isAllDay,
                         isPrivate,
+                        isRecurring,
                         eventDescription,
                         eventLocation));
 
@@ -177,7 +179,11 @@ public class EventPane extends GridPane {
         add(isPrivateLabel, 0, 7);
         add(isPrivate, 1, 7);
 
-        add(errorMessage, 0, 9, 2, 1);
+        Label isRecuringLabel = new Label("Recurring");
+        add(isRecuringLabel, 0, 8);
+        add(isRecurring, 1, 8);
+
+        add(errorMessage, 0, 10, 2, 1);
 
         isAllDay.setOnAction(event -> times.setVisible(!isAllDay.isSelected()));
     }
@@ -195,6 +201,7 @@ public class EventPane extends GridPane {
         }
         isAllDay.setSelected(special_day.isAllDay());
         isPrivate.setSelected(special_day.isPrivate());
+        isRecurring.setSelected(special_day.isRecurring());
         eventDescription.setText(special_day.getDescription());
         eventLocation.setText(special_day.getLocation());
 
@@ -202,10 +209,10 @@ public class EventPane extends GridPane {
 
     private Special_Day generateSpecial_Day() {
         if (isAllDay.isSelected()) {
-            return new Special_Day(eventTitle.getText(), startDate.getValue(), null, endDate.getValue(), null, isAllDay.isSelected(), eventDescription.getText(), eventLocation.getText(), isPrivate.isSelected());
+            return new Special_Day(eventTitle.getText(), startDate.getValue(), null, endDate.getValue(), null, isAllDay.isSelected(), eventDescription.getText(), eventLocation.getText(), isPrivate.isSelected(), isRecurring.isSelected());
         }
         else {
-            return new Special_Day(eventTitle.getText(), startDate.getValue(), LocalTime.parse(startTime.getText(), DateTimeFormatter.ofPattern("hh:mm a")), endDate.getValue(), LocalTime.parse(endTime.getText(), DateTimeFormatter.ofPattern("hh:mm a")), isAllDay.isSelected(), eventDescription.getText(), eventLocation.getText(), isPrivate.isSelected());
+            return new Special_Day(eventTitle.getText(), startDate.getValue(), LocalTime.parse(startTime.getText(), DateTimeFormatter.ofPattern("hh:mm a")), endDate.getValue(), LocalTime.parse(endTime.getText(), DateTimeFormatter.ofPattern("hh:mm a")), isAllDay.isSelected(), eventDescription.getText(), eventLocation.getText(), isPrivate.isSelected(), isRecurring.isSelected());
         }
     }
 }
