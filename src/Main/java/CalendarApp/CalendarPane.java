@@ -46,7 +46,7 @@ public class CalendarPane extends BorderPane {
         countdown.setOnAction(event -> {
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
-            Scene scene = new Scene(new Countdown(user, closestage -> stage.close()));
+            Scene scene = new Scene(new Countdown(user));
             stage.setAlwaysOnTop(true);
             stage.setResizable(false);
             stage.setScene(scene);

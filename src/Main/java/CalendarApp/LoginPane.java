@@ -18,9 +18,8 @@ public class LoginPane extends FlowPane  {
 
     // TODO: possibly user could pick from list of created users, or create a new one. That way less typing is needed.
 
-    /**
-     * This class creates the foundation of the login screen for the user.
-     */
+
+
  /** This method will clear the window of the pane */
     public void clearWindow() {
         getChildren().clear();
@@ -51,19 +50,20 @@ public class LoginPane extends FlowPane  {
             DatePicker date_holder = new DatePicker();
             getChildren().addAll(date_holder, add, clear);
 
-            add.setOnAction(new EventHandler<ActionEvent>() {
-
-                public void handle(ActionEvent e) {
-                    String full_name;
-                    full_name = name.getText();
-                    LocalDate date;
-                    date = date_holder.getValue();
+            add.setOnAction(e1 -> {
+                String full_name;
+                full_name = name.getText();
+                LocalDate date;
+                date = date_holder.getValue();
 
 
-                    if ((name.getText() != null && !name.getText().isEmpty())) {
+                if ((name.getText() != null && !name.getText().isEmpty())) {
+                    try {
                         User user = new User(full_name, date);
                         clearWindow();
                         restart(postLoginAction);
+                    } catch (IllegalArgumentException | IOException f) {
+                        System.out.println(f.getMessage());
                     }
                 }
             });
@@ -113,7 +113,6 @@ public class LoginPane extends FlowPane  {
         getChildren().addAll(yes, no);
 
     }
-
 /** This is the main constructor.  Here is where the login screen is set. */
     public LoginPane(Consumer<User> postLoginAction) {
         //Background background = new Background(new BackgroundImage(new Image("./resources/background.jpg"), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT));
@@ -144,19 +143,20 @@ public class LoginPane extends FlowPane  {
 
 
 
-            add.setOnAction(new EventHandler<ActionEvent>() {
-
-                public void handle(ActionEvent e) {
-                    String full_name;
-                    full_name = name.getText();
-                    LocalDate date;
-                    date = date_holder.getValue();
+            add.setOnAction(e1 -> {
+                String full_name;
+                full_name = name.getText();
+                LocalDate date;
+                date = date_holder.getValue();
 
 
-                    if ((name.getText() != null && !name.getText().isEmpty())) {
+                if ((name.getText() != null && !name.getText().isEmpty())) {
+                    try {
                         User user = new User(full_name, date);
                         clearWindow();
                         restart(postLoginAction);
+                    } catch (IllegalArgumentException | IOException f) {
+                        System.out.println(f.getMessage());
                     }
                 }
             });
@@ -180,18 +180,17 @@ public class LoginPane extends FlowPane  {
             confirm.setOnAction(confirmUser -> {
                 try {
                     postLoginAction.accept(new User(choice.getValue()));
-                } catch (IOException o) {
-                    final Label label = new Label("Please select a name from the box!");
+                } catch (IllegalArgumentException | IOException o) {
+                    final Label label = new Label(o.getMessage());
                     label.setTranslateY(20);
                     label.setTranslateX(30);
                     getChildren().add(label);
-                    // TODO react to Special_Days file not being found   !!!I added a label to fix this!!!
                 }
             });
             getChildren().add(confirm);
             getChildren().add(user_prompt);
             getChildren().add(choice);
-            user_prompt.setTranslateX(-280);                        //TODO Fix add a GridPane
+            user_prompt.setTranslateX(-280);
             user_prompt.setTranslateY(30);
             choice.setTranslateX(115);
             choice.setTranslateY(0);
@@ -199,7 +198,6 @@ public class LoginPane extends FlowPane  {
             confirm.setTranslateY(30);
 
         };
-
 
         add.setAlignment(Pos.BASELINE_CENTER);
         clear.setAlignment(Pos.BASELINE_CENTER);

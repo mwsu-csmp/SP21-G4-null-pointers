@@ -18,18 +18,13 @@ public class User {
      * @param birthday the user's birthday
      * @throws IllegalArgumentException if birthday is null
      */
-    public User(String name, LocalDate birthday) throws IllegalArgumentException{
+    public User(String name, LocalDate birthday) throws IllegalArgumentException, IOException{
         if (birthday == null) throw new IllegalArgumentException("Bad birthday!");
         this.name = name;
         special_days = new ArrayList<>();
         special_days.add(new Special_Day("My birthday!", birthday, null, birthday, null, true, "It's my birthday!", null, true, true));
         makeUserDirectory();
-        try {
-            saveSpecial_Days();
-        } catch (IOException e) {
-            //TODO: add exception handle
-        }
-
+        saveSpecial_Days();
     }
 
     /** re-creates an existing user

@@ -15,7 +15,7 @@ import java.util.function.Consumer;
 
 public class Countdown extends StackPane {
 
-    public Countdown(User user, Consumer<User> postLoginAction) {
+    public Countdown(User user) {
 
         setPadding(new Insets(50));
         Label select = new Label("Please Select Which Dates To Countdown:");
@@ -43,9 +43,13 @@ public class Countdown extends StackPane {
         }
 
         calculate.setOnAction(event -> {
-            Long diff = choice.getValue().getStartdate().until(choice2.getValue().getStartdate(), ChronoUnit.DAYS);
-            display.setText("There are " + diff + " days between " + choice.getValue() + " and " + choice2.getValue());
-            System.out.println(diff);
+            if (choice.getValue().getStartdate().isBefore(choice2.getValue().getStartdate())) {
+                Long diff = choice.getValue().getStartdate().until(choice2.getValue().getStartdate(), ChronoUnit.DAYS);
+                display.setText("There are " + diff + " days between " + choice.getValue() + " and " + choice2.getValue());
+                System.out.println(diff);
+            } else {
+                display.setText("ERROR: start day is not before end day");
+            }
         });
 
         clear.setOnAction(event -> {
@@ -54,33 +58,6 @@ public class Countdown extends StackPane {
             choice.setValue(null);
             choice2.setValue(null);
             display.setText("");
-        });
-
-        choice.setOnAction(event -> {
-            for (Special_Day special_day : user.getSpecial_Days()) {
-                if (special_day.getStartdate().isAfter(choice.getValue().getStartdate()) || special_day.getStartdate().isEqual(choice.getValue().getStartdate())) {
-                    if (!choice2.getItems().contains(special_day))
-                        choice2.getItems().add(special_day);
-                } else {
-                    if (choice2.getValue().equals(special_day))
-                        choice2.setValue(null);
-                    choice2.getItems().remove(special_day);
-                }
-            }
-        });
-
-        choice2.setOnAction(event -> {
-            for (Special_Day special_day : user.getSpecial_Days()) {
-                if (special_day.getStartdate().isBefore(choice2.getValue().getStartdate()) || special_day.getStartdate().isEqual(choice2.getValue().getStartdate())) {
-                    if (!choice.getItems().contains(special_day))
-                        choice.getItems().add(special_day);
-                } else {
-                    if (choice.getValue().equals(special_day))
-                        choice.setValue(null);
-                    choice.getItems().remove(special_day);
-                }
-
-            }
         });
 
         hbox.getChildren().addAll(select, choice, choice2, calculate, clear);
