@@ -18,6 +18,8 @@ public class User {
      * @param birthday the user's birthday
      * @throws IllegalArgumentException if birthday is null
      */
+
+    /** this constructor holds the name and birthday of the user */
     public User(String name, LocalDate birthday) throws IllegalArgumentException, IOException{
         if (birthday == null) throw new IllegalArgumentException("Bad birthday!");
         this.name = name;
@@ -38,25 +40,32 @@ public class User {
         loadSpecial_Days();
     }
 
+    /** this method adds a special day */
     public void addSpecialDay(Special_Day special_day){
         special_days.add(special_day);
     }
 
+    /** this method removes a special day */
     public void removeSpecialDay(Special_Day special_day){
         special_days.remove(special_day);
     }
 
+    /** this method sets the calender */
     public void setCalendar(Calendar calendar) {
         this.calendar = calendar;
     }
+
+    /** this method returns the calender */
     public Calendar getCalendar() {
         return calendar;
     }
 
+    /** this method returns the arraylist of special days */
     public ArrayList<Special_Day> getSpecial_Days(){
         return special_days;
     }
 
+    /** this method loads the special days */
     public void loadSpecial_Days() throws IOException {
         File saveFile = new File("./resources/Users/" + name + "/specialdays.txt");
         Scanner in = new Scanner(saveFile);
@@ -66,6 +75,7 @@ public class User {
         in.close();
     }
 
+    /** this method saves the special days */
     public void saveSpecial_Days() throws IOException {
         File saveFile = new File("./resources/Users/" + name + "/specialdays.txt");
         var out = new FileWriter(saveFile);
@@ -75,6 +85,7 @@ public class User {
         out.close();
     }
 
+    /** this makes a user directory */
     private void makeUserDirectory(){
         File directory = new File("./resources/Users/" + name);
         if (!directory.mkdir()) {

@@ -26,6 +26,8 @@ public class CalendarPane extends BorderPane {
      * @param year Current year being displayed
      * @param user Current user logged in
      */
+
+    /** Creates the different aspects of the calender */
     public CalendarPane(int month, int year, User user, Consumer<Boolean> exit){
         CalendarBody = new Calendar(month, year, user);
         datetext = new Label(CalendarBody.dateToString());

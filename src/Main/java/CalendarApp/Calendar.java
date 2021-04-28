@@ -70,19 +70,20 @@ public class Calendar extends GridPane {
             }
     }
 
+    /** This method creates the calender */
     public void populateCalendar(){
         populateCalendar(month, year);
     }
 
-    // Starts at December for looping purposes
+    /** Starts at December for looping purposes */
     private static final int[] monthdays = new int[]{31, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
-    // Contains codes based on Zeller's Congruence algorithm
+    /**  Contains codes based on Zeller's Congruence algorithm */
     private static final int[] monthcode = new int[]{11, 12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
     private static final String[] months = new String[]{null ,"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 
-    // Creating week day labels
+    /** Creating week day labels */
     private static final String[] weekDays = new String[]{"Sunday", "Monday", "Tuesday" , "Wednesday", "Thursday", "Friday", "Saturday"};
 
 
@@ -106,10 +107,12 @@ public class Calendar extends GridPane {
             return (int)(F - (floor(F / 7.0) * 7));
     }
 
+    /** returns the date in a string */
     public String dateToString(){
         return months[month] + ", " + year;
     }
 
+    /** moves the calender a month forward when selected */
     public void moveMonthForwards(){
         if (month == 12) {
             month = 1;
@@ -118,6 +121,7 @@ public class Calendar extends GridPane {
         populateCalendar(month, year);
     }
 
+    /** moves the calender a month backward when selected */
     public void moveMonthBackwards(){
         if (month == 1) {
             month = 12;
@@ -125,11 +129,13 @@ public class Calendar extends GridPane {
         } else month--;
         populateCalendar(month, year);
     }
+    /** moves the calender a year forward when selected */
     public void moveYearForwards(){
         year++;
         populateCalendar(month, year);
     }
 
+    /** moves the calender a year backward when selected */
     public void moveYearBackwards(){
         year--;
         populateCalendar(month, year);

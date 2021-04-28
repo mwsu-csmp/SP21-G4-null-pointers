@@ -6,7 +6,13 @@ import javafx.scene.control.Tooltip;
 import javafx.stage.Stage;
 
 public class EventButton extends Button {
+    /**
+     *
+     * @param user holds the user
+     * @param special_day holds the special day
+     */
 
+    /** is a button that populates a scene when selected */
     public EventButton(User user ,Special_Day special_day) {
         super(special_day.getTitle());
 

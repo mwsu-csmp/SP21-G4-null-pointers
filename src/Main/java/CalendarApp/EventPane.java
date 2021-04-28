@@ -46,6 +46,7 @@ public class EventPane extends GridPane {
      * @param user current user logged in
      * @param postAddEventAction action to be done after event is added
      */
+    /** creates the event pane that pops up when the user presses the button */
     public EventPane(User user, Consumer<Boolean> postAddEventAction){
 
         this.postAddEventAction = postAddEventAction;
@@ -91,6 +92,7 @@ public class EventPane extends GridPane {
 
     }
 
+    /** this method populates the event pane */
     private void populateEventPane() {
 
         sceneTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
@@ -180,6 +182,7 @@ public class EventPane extends GridPane {
         });
     }
 
+    /** this method allows the user to edit a special day that was already created */
     private void enableEditMode() {
         edit.setVisible(false);
         for (Node node : nodes)
@@ -190,6 +193,7 @@ public class EventPane extends GridPane {
         sceneTitle.setText("Edit Event");
     }
 
+    /** this method disables the edit mode */
     private void disableEditMode() {
         cancel.setVisible(false);
         confirm.setVisible(false);
@@ -201,6 +205,7 @@ public class EventPane extends GridPane {
         sceneTitle.setText("View Event");
     }
 
+    /** this method populated the event pane parameters */
     private void populateEventPaneParameters(Special_Day special_day) {
 
         eventTitle.setText(special_day.getTitle());
@@ -222,6 +227,7 @@ public class EventPane extends GridPane {
         isRecurring.setSelected(special_day.isRecurring());
     }
 
+    /** this will generate the special day depending on whether it is an all day event or not */
     private Special_Day generateSpecial_Day() {
         if (isAllDay.isSelected()) {
             if (isRecurring.isSelected())

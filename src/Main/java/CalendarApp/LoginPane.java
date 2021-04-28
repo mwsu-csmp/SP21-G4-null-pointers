@@ -14,11 +14,9 @@ import java.util.function.Consumer;
 
 
 public class LoginPane extends FlowPane  {
-    // TODO: create a pane for user login, Josiah already has a good start at this!
-
-    // TODO: possibly user could pick from list of created users, or create a new one. That way less typing is needed.
-
-
+    /**
+     * This class creates the login pane that first pops up when the program runs
+     */
 
  /** This method will clear the window of the pane */
     public void clearWindow() {

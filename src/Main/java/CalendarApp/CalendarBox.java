@@ -11,7 +11,14 @@ import javafx.scene.shape.Rectangle;
 import java.time.LocalDate;
 
 public class CalendarBox extends StackPane {
+    /**
+     *
+     * @param currentday  holds the current day
+     * @param user holds the user that is selected in the login screen
+     * @param currentmonth holds the current month
+     */
 
+    /** this constructor creates the calender based on the user and the current day and month */
     public CalendarBox(LocalDate currentday, User user, boolean currentmonth){
 
         int day = currentday.getDayOfMonth();

@@ -18,6 +18,22 @@ public class Special_Day {
     private final boolean isprivate;
     private final boolean isrecurring;
 
+    /**
+     *
+     * @param title holds the title of the special day that the user provides
+     * @param startdate holds the start date that the user provides for their special day
+     * @param starttime holds the start time that the user provides for their special day
+     * @param enddate holds the end date that the user provides for their special day
+     * @param endtime holds the end time that the user provides for their special day
+     * @param isallday s a boolean variable. If the user selects this the special day is an all day event.
+     * @param description holds the description of the special day that the user provides.
+     * @param location holds the location of the special day that the user provides
+     * @param isprivate is a boolean that the user can select their special day as private or public
+     * @param isrecurring is a boolean that if selected make the special day recurring throughout the years
+     * @throws IllegalArgumentException  is thrown if there is an error
+     */
+
+    /** Is a constructor that is used to hold the information for the special days */
     public Special_Day(String title, LocalDate startdate, LocalTime starttime, LocalDate enddate, LocalTime endtime, boolean isallday, String description, String location, boolean isprivate, boolean isrecurring) throws IllegalArgumentException {
         this.title = title;
         this.startdate = startdate;
@@ -39,6 +55,7 @@ public class Special_Day {
             throw new IllegalArgumentException("Start date is after end date");
     }
 
+    /** Is a constructor that takes the constructor above and then saves it to a file in resources/Users */
     public Special_Day(String csvDesc) throws IllegalArgumentException {
         try {
             var fields = Arrays.asList(csvDesc.split(","));
@@ -80,6 +97,7 @@ public class Special_Day {
         }
     }
 
+    /** Take the special day constructor and forms it into a string */
     public String serialize() {
         ArrayList<String> returnlist = new ArrayList<>();
         returnlist.add(title);
@@ -112,47 +130,57 @@ public class Special_Day {
                 returnlist.get(9) + "\"";
     }
 
+    /** holds the start date for the special day */
     public LocalDate getStartdate() {
         return startdate;
     }
 
+    /** returns the end date for the special day */
     public LocalDate getEnddate() {
         return enddate;
     }
 
+    /** returns the start time for the special day */
     public LocalTime getStarttime() {
         return starttime;
     }
 
+    /** returns the end time for the special day */
     public LocalTime getEndtime() {
         return endtime;
     }
 
+    /** returns the title for the special day */
     public String getTitle() {
         return title;
     }
 
+    /** returns the description of the special day */
     public String getDescription() {
         return description;
     }
 
+    /** returns the location of the special day */
     public String getLocation() {
         return location;
     }
 
+    /** returns either true or false based on if the special day is an all day event */
     public boolean isAllDay() {
         return isallday;
     }
 
+    /** returns either true or false based in if the special day is an either private or public */
     public boolean isPrivate() {
         return isprivate;
     }
 
+    /** returns either true or false based on if the special day is a recurring event or not */
     public boolean isRecurring() {
         return isrecurring;
     }
 
-
+/** this overrides the toString method to return the title of the special day */
     @Override
     public String toString() {
         return getTitle();
