@@ -7,10 +7,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class weekdayBox extends StackPane {
-    /**
-     *
-     * @param day holds the day
-     */
     /** this is the main constructor that creates a weekdayBox */
     public weekdayBox(String day) {
         Rectangle outline = new Rectangle();

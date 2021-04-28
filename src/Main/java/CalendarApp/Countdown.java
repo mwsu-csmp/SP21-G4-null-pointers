@@ -38,7 +38,10 @@ public class Countdown extends StackPane {
         try {
             choice.getItems().add(new Special_Day("Today", LocalDate.now(), LocalTime.now(), LocalDate.now(), LocalTime.now(), true, null, null, false, false));
         } catch (IllegalArgumentException e) {
-            System.out.println("You shouldn't be seeing this"); //TODO: Redo this later
+            final Label label = new Label(e.getMessage());
+            label.setTranslateY(20);
+            label.setTranslateX(30);
+            getChildren().add(label);
         }
 
         for (Special_Day special_day : user.getSpecial_Days()) {

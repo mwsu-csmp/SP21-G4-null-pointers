@@ -1,12 +1,12 @@
 package CalendarApp;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.layout.*;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.scene.layout.FlowPane;
+
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -14,16 +14,13 @@ import java.util.function.Consumer;
 
 
 public class LoginPane extends FlowPane  {
-    /**
-     * This class creates the login pane that first pops up when the program runs
-     */
 
- /** This method will clear the window of the pane */
+    /** This method will clear the window of the pane */
     public void clearWindow() {
         getChildren().clear();
     }
 
-    /** For multiple user inputs the scene needs to be restated to be able to access it again. */
+    /** For multiple user inputs the scene needs to be restarted to be able to access it again. */
     public void restart(Consumer<User> postLoginAction) {
         setPadding(new Insets(100, 150, 150, 200));
         setHgap(5);
@@ -47,6 +44,8 @@ public class LoginPane extends FlowPane  {
             getChildren().addAll(new Label("Please enter your date of birth:"));
             DatePicker date_holder = new DatePicker();
             getChildren().addAll(date_holder, add, clear);
+            yes.setDisable(true);
+            no.setDisable(true);
 
             add.setOnAction(e1 -> {
                 String full_name;
@@ -73,6 +72,8 @@ public class LoginPane extends FlowPane  {
             });
         };
         EventHandler<ActionEvent> event1 = e -> {
+            yes.setDisable(true);
+            no.setDisable(true);
             Label user_prompt = new Label("Please select a name:");
             ChoiceBox<String> choice = new ChoiceBox<>();
             File folder = new File("./resources/Users");
@@ -89,13 +90,12 @@ public class LoginPane extends FlowPane  {
                     label.setTranslateY(20);
                     label.setTranslateX(30);
                     getChildren().add(label);
-                    // TODO react to Special_Days file not being found   !!!I added a label to fix this!!!
                 }
             });
             getChildren().add(confirm);
             getChildren().add(user_prompt);
             getChildren().add(choice);
-            user_prompt.setTranslateX(-280);                        //TODO Fix add a GridPane
+            user_prompt.setTranslateX(-280);
             user_prompt.setTranslateY(30);
             choice.setTranslateX(115);
             choice.setTranslateY(0);
@@ -113,8 +113,6 @@ public class LoginPane extends FlowPane  {
     }
 /** This is the main constructor.  Here is where the login screen is set. */
     public LoginPane(Consumer<User> postLoginAction) {
-        //Background background = new Background(new BackgroundImage(new Image("./resources/background.jpg"), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT));
-        //setBackground(background);
         setPadding(new Insets(100, 150, 150, 200));
         setHgap(5);
         setVgap(5);
@@ -138,6 +136,8 @@ public class LoginPane extends FlowPane  {
             getChildren().addAll(new Label("Please enter your date of birth:"));
             DatePicker date_holder = new DatePicker();
             getChildren().addAll(date_holder, add, clear);
+            yes.setDisable(true);
+            no.setDisable(true);
 
 
 
@@ -167,6 +167,8 @@ public class LoginPane extends FlowPane  {
         };
 
         EventHandler<ActionEvent> event1 = e -> {
+            yes.setDisable(true);
+            no.setDisable(true);
             Label user_prompt = new Label("Please select a name:");
             ChoiceBox<String> choice = new ChoiceBox<>();
             File folder = new File("./resources/Users");
