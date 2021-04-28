@@ -12,9 +12,7 @@ import javafx.stage.Stage;
 import java.time.LocalDate;
 
 public class Main extends Application {
-    /**
-     * this is the main method. this is where the login pane gets called and then moves onto the calender pane upon initialization
-     */
+
     public static void main(String[] args) {
         launch(args);
     }

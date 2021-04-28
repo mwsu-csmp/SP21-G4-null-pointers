@@ -18,7 +18,7 @@ public class Special_Day {
     private final boolean isprivate;
     private final boolean isrecurring;
 
-    /**
+    /** Creates a Special_Day for a user
      *
      * @param title holds the title of the special day that the user provides
      * @param startdate holds the start date that the user provides for their special day
@@ -30,10 +30,9 @@ public class Special_Day {
      * @param location holds the location of the special day that the user provides
      * @param isprivate is a boolean that the user can select their special day as private or public
      * @param isrecurring is a boolean that if selected make the special day recurring throughout the years
-     * @throws IllegalArgumentException  is thrown if there is an error
+     * @throws IllegalArgumentException  if startdate is after enddate
      */
 
-    /** Is a constructor that is used to hold the information for the special days */
     public Special_Day(String title, LocalDate startdate, LocalTime starttime, LocalDate enddate, LocalTime endtime, boolean isallday, String description, String location, boolean isprivate, boolean isrecurring) throws IllegalArgumentException {
         this.title = title;
         this.startdate = startdate;
@@ -55,8 +54,11 @@ public class Special_Day {
             throw new IllegalArgumentException("Start date is after end date");
     }
 
-    /** Is a constructor that takes the constructor above and then saves it to a file in resources/Users */
-    public Special_Day(String csvDesc) throws IllegalArgumentException {
+    /** Creates a Special_Day for a user
+     * @param csvDesc a string to be converted to a Special_Day
+     * @throws IllegalArgumentException if csvDesc has improperly formatted lines
+     */
+    public Special_Day(String csvDesc) throws IllegalArgumentException { //TODO: could possibly be transformed into Special_Day.Parse(String csvDesc)
         try {
             var fields = Arrays.asList(csvDesc.split(","));
             var newfields = new ArrayList<String>();

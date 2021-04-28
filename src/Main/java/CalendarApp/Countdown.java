@@ -14,12 +14,10 @@ import java.util.function.Consumer;
 
 
 public class Countdown extends StackPane {
-    /** Calculates the day in between special days
-     *
+
+    /** Calculates the days between two special days
      * @param user holds the user that was selected
      */
-
-    /** is the main constructor to calculate the days in between special days */
     public Countdown(User user) {
 
         setPadding(new Insets(50));
