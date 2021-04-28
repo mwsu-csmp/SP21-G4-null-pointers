@@ -1,4 +1,3 @@
-
 package CalendarApp;
 
 import javafx.scene.Scene;
