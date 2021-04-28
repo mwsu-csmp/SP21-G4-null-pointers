@@ -10,6 +10,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
+import java.lang.reflect.Array;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -18,6 +19,7 @@ import java.util.Arrays;
 import java.util.function.Consumer;
 
 public class EventPane extends GridPane {
+    private final Text sceneTitle = new Text();
     private final TextField eventTitle = new TextField();
     private final DatePicker startDate = new DatePicker();
     private final DatePicker endDate = new DatePicker();
@@ -27,9 +29,17 @@ public class EventPane extends GridPane {
     private final TextField eventDescription = new TextField();
     private final TextField eventLocation = new TextField();
     private final CheckBox isPrivate = new CheckBox();
+    private final CheckBox isRecurring = new CheckBox();
     private final Label errorMessage = new Label("");
     private final HBox times = new HBox();
-    private final Calendar calendar;
+    private final User user;
+    private final Consumer<Boolean> postAddEventAction;
+
+    private final Special_Day special_day;
+    private final Button edit = new Button("edit");
+    private final Button cancel = new Button("cancel");
+    private final Button confirm = new Button("confirm");
+    private final Button delete = new Button("delete");
 
     /** Creates an EventPane for making a new Special_Day
      *
@@ -38,24 +48,24 @@ public class EventPane extends GridPane {
      */
     public EventPane(User user, Consumer<Boolean> postAddEventAction){
 
-        calendar = user.getCalendar();
+        this.postAddEventAction = postAddEventAction;
+        this.user = user;
+        special_day = null;
 
-        Text scenetitle = new Text("Add Event");
-        scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
-        add(scenetitle, 0, 0, 2, 1);
+        sceneTitle.setText("Add Event");
 
         Button addButton = new Button("Add");
-        add(addButton, 1, 8);
+        add(addButton, 1, 9);
 
         addButton.setOnAction(event -> {
             try {
                 user.addSpecialDay(generateSpecial_Day());
-                calendar.populateCalendar();
+                user.getCalendar().populateCalendar();
                 postAddEventAction.accept(true);
-            } catch (IllegalArgumentException e) {
-                errorMessage.setText("ERROR: " + e.getMessage());
             } catch (DateTimeParseException e) {
                 errorMessage.setText("ERROR: Date format is incorrect, try hh:mm AM/PM format");
+            } catch (Exception e) {
+                errorMessage.setText("ERROR: " + e.getMessage());
             }
         });
         populateEventPane();
@@ -69,80 +79,22 @@ public class EventPane extends GridPane {
      */
     public EventPane(User user, Consumer<Boolean> postAddEventAction, Special_Day special_day) {
 
-        calendar = user.getCalendar();
+        this.postAddEventAction = postAddEventAction;
+        this.user = user;
+        this.special_day = special_day;
 
-        Text scenetitle = new Text("View Event");
-        scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
-        add(scenetitle, 0, 0, 2, 1);
-
+        sceneTitle.setText("View Event");
         populateEventPane();
         populateEventPaneParameters(special_day);
-
-        ArrayList<Node> nodes = new ArrayList<>(
-                Arrays.asList(eventTitle,
-                        startDate,
-                        endDate,
-                        startTime,
-                        endTime,
-                        isAllDay,
-                        isPrivate,
-                        eventDescription,
-                        eventLocation));
-
-        for (Node node : nodes) {
-            node.setDisable(true);
-        }
-
-        Button edit = new Button("Edit");
-        Button cancel = new Button("Cancel");
-        cancel.setVisible(false);
-        Button confirm = new Button("Confirm");
-        confirm.setVisible(false);
-
-        HBox choices = new HBox();
-        choices.getChildren().addAll(edit, cancel, confirm);
-        add(choices, 0, 8, 2, 1);
-
-        edit.setOnAction(event ->{
-            edit.setVisible(false);
-            for (Node node : nodes)
-                node.setDisable(false);
-            cancel.setVisible(true);
-            confirm.setVisible(true);
-            scenetitle.setText("Edit Event");
-        });
-
-        cancel.setOnAction(event -> {
-            cancel.setVisible(false);
-            confirm.setVisible(false);
-            for (Node node : nodes)
-                node.setDisable(true);
-            edit.setVisible(true);
-            populateEventPaneParameters(special_day);
-            scenetitle.setText("View Event");
-        });
-
-        confirm.setOnAction(event -> {
-            try {
-                user.addSpecialDay(generateSpecial_Day());
-                user.removeSpecialDay(special_day);
-                calendar.populateCalendar();
-                postAddEventAction.accept(true);
-            } catch (IllegalArgumentException e) {
-                errorMessage.setText("ERROR: " + e.getMessage());
-            } catch (DateTimeParseException e) {
-                errorMessage.setText("ERROR: Date format is incorrect, try hh:mm AM/PM format");
-            }
-            // TODO: Add delete button for existing events
-        });
+        initializeChoiceButtons();
+        disableEditMode();
 
     }
 
     private void populateEventPane() {
 
-        Text scenetitle = new Text("");
-        scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
-        add(scenetitle, 0, 0, 2, 1);
+        sceneTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+        add(sceneTitle, 0, 0, 2, 1);
 
         setAlignment(Pos.BASELINE_RIGHT);
         setHgap(10);
@@ -153,12 +105,10 @@ public class EventPane extends GridPane {
         add(eventTitleLabel, 0, 1);
         add(eventTitle, 1, 1);
 
-        Label divider1 = new Label("-");
-        HBox dates = new HBox(startDate, divider1, endDate);
+        HBox dates = new HBox(startDate, endDate);
         add(dates, 0, 2, 2, 1);
 
-        Label divider2 = new Label("-");
-        times.getChildren().addAll(startTime, divider2, endTime);
+        times.getChildren().addAll(startTime, endTime);
         add(times, 0, 3, 2, 1);
 
         Label isAllDayLabel = new Label("All Day");
@@ -177,16 +127,88 @@ public class EventPane extends GridPane {
         add(isPrivateLabel, 0, 7);
         add(isPrivate, 1, 7);
 
-        add(errorMessage, 0, 9, 2, 1);
+        Label isRecurringLabel = new Label("Recurring");
+        add(isRecurringLabel, 0, 8);
+        add(isRecurring, 1, 8);
+
+        add(errorMessage, 0, 10, 2, 1);
 
         isAllDay.setOnAction(event -> times.setVisible(!isAllDay.isSelected()));
+        isRecurring.setOnAction(event -> endDate.setVisible(!isRecurring.isSelected()));
+    }
+
+    /** Contains all Special_Day attributes the user can edit */
+    private final Node[] nodes = new Node[]{eventTitle,
+            startDate,
+            endDate,
+            startTime,
+            endTime,
+            isAllDay,
+            isPrivate,
+            eventDescription,
+            eventLocation,
+            isRecurring};
+
+    /** Creates each ChoiceButton for the user to select */
+    private void initializeChoiceButtons() {
+
+        HBox choices = new HBox();
+        choices.getChildren().addAll(edit, cancel, confirm, delete);
+        add(choices, 0, 9, 2, 1);
+
+        edit.setOnAction(event -> enableEditMode());
+
+        cancel.setOnAction(event -> disableEditMode());
+
+        confirm.setOnAction(event -> {
+            try {
+                user.addSpecialDay(generateSpecial_Day());
+                user.removeSpecialDay(special_day);
+                user.getCalendar().populateCalendar();
+                postAddEventAction.accept(true);
+            } catch (IllegalArgumentException e) {
+                errorMessage.setText("ERROR: " + e.getMessage());
+            } catch (DateTimeParseException e) {
+                errorMessage.setText("ERROR: Date format is incorrect, try hh:mm AM/PM format");
+            }
+        });
+
+        delete.setOnAction(event -> {
+                user.removeSpecialDay(special_day);
+                user.getCalendar().populateCalendar();
+                postAddEventAction.accept(true);
+        });
+    }
+
+    private void enableEditMode() {
+        edit.setVisible(false);
+        for (Node node : nodes)
+            node.setDisable(false);
+        cancel.setVisible(true);
+        confirm.setVisible(true);
+        delete.setVisible(true);
+        sceneTitle.setText("Edit Event");
+    }
+
+    private void disableEditMode() {
+        cancel.setVisible(false);
+        confirm.setVisible(false);
+        delete.setVisible(false);
+        for (Node node : nodes)
+            node.setDisable(true);
+        edit.setVisible(true);
+        populateEventPaneParameters(special_day);
+        sceneTitle.setText("View Event");
     }
 
     private void populateEventPaneParameters(Special_Day special_day) {
 
         eventTitle.setText(special_day.getTitle());
         startDate.setValue(special_day.getStartdate());
-        endDate.setValue(special_day.getEnddate());
+        if (!special_day.isRecurring())
+            endDate.setValue(special_day.getEnddate());
+        else
+            endDate.setVisible(false);
         if (!special_day.isAllDay()) {
             startTime.setText(special_day.getStarttime().format(DateTimeFormatter.ofPattern("hh:mm a")));
             endTime.setText(special_day.getEndtime().format(DateTimeFormatter.ofPattern("hh:mm a")));
@@ -197,15 +219,21 @@ public class EventPane extends GridPane {
         isPrivate.setSelected(special_day.isPrivate());
         eventDescription.setText(special_day.getDescription());
         eventLocation.setText(special_day.getLocation());
-
+        isRecurring.setSelected(special_day.isRecurring());
     }
 
     private Special_Day generateSpecial_Day() {
         if (isAllDay.isSelected()) {
-            return new Special_Day(eventTitle.getText(), startDate.getValue(), null, endDate.getValue(), null, isAllDay.isSelected(), eventDescription.getText(), eventLocation.getText(), isPrivate.isSelected());
+            if (isRecurring.isSelected())
+                return new Special_Day(eventTitle.getText(), startDate.getValue(), null, startDate.getValue(), null, isAllDay.isSelected(), eventDescription.getText(), eventLocation.getText(), isPrivate.isSelected(), isRecurring.isSelected());
+            else
+                return new Special_Day(eventTitle.getText(), startDate.getValue(), null, endDate.getValue(), null, isAllDay.isSelected(), eventDescription.getText(), eventLocation.getText(), isPrivate.isSelected(), isRecurring.isSelected());
         }
         else {
-            return new Special_Day(eventTitle.getText(), startDate.getValue(), LocalTime.parse(startTime.getText(), DateTimeFormatter.ofPattern("hh:mm a")), endDate.getValue(), LocalTime.parse(endTime.getText(), DateTimeFormatter.ofPattern("hh:mm a")), isAllDay.isSelected(), eventDescription.getText(), eventLocation.getText(), isPrivate.isSelected());
+            if (isRecurring.isSelected())
+                return new Special_Day(eventTitle.getText(), startDate.getValue(), LocalTime.parse(startTime.getText(), DateTimeFormatter.ofPattern("hh:mm a")), startDate.getValue(), LocalTime.parse(endTime.getText(), DateTimeFormatter.ofPattern("hh:mm a")), isAllDay.isSelected(), eventDescription.getText(), eventLocation.getText(), isPrivate.isSelected(), isRecurring.isSelected());
+            else
+                return new Special_Day(eventTitle.getText(), startDate.getValue(), LocalTime.parse(startTime.getText(), DateTimeFormatter.ofPattern("hh:mm a")), endDate.getValue(), LocalTime.parse(endTime.getText(), DateTimeFormatter.ofPattern("hh:mm a")), isAllDay.isSelected(), eventDescription.getText(), eventLocation.getText(), isPrivate.isSelected(), isRecurring.isSelected());
         }
     }
 }
