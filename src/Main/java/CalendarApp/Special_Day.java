@@ -58,7 +58,7 @@ public class Special_Day {
      * @param csvDesc a string to be converted to a Special_Day
      * @throws IllegalArgumentException if csvDesc has improperly formatted lines
      */
-    public Special_Day(String csvDesc) throws IllegalArgumentException { //TODO: could possibly be transformed into Special_Day.Parse(String csvDesc)
+    public Special_Day(String csvDesc) throws IllegalArgumentException {
         try {
             var fields = Arrays.asList(csvDesc.split(","));
             var newfields = new ArrayList<String>();

@@ -77,5 +77,4 @@ public class CalendarBox extends StackPane {
 
         }
     }
-    // TODO: Add ability to pull calendar data from csv
 }

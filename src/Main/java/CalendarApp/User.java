@@ -92,6 +92,4 @@ public class User {
             System.out.println("Could not make directory");
         }
     }
-
-    // TODO: Add ability to Serialize special day into a string for output
 }

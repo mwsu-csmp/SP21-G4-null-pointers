@@ -32,6 +32,7 @@ public class LoginPane extends FlowPane  {
         Button add = new Button("Add");
         Button confirm = new Button("Confirm");
         Button clear = new Button("Clear");
+        Button back = new Button("Back");
         add.setStyle("-fx-background-color: #06f642; ");
         clear.setStyle("-fx-background-color: rgba(205,18,18,0.75); ");
 
@@ -43,7 +44,7 @@ public class LoginPane extends FlowPane  {
             getChildren().addAll(name);
             getChildren().addAll(new Label("Please enter your date of birth:"));
             DatePicker date_holder = new DatePicker();
-            getChildren().addAll(date_holder, add, clear);
+            getChildren().addAll(date_holder, add, clear, back);
             yes.setDisable(true);
             no.setDisable(true);
 
@@ -69,6 +70,11 @@ public class LoginPane extends FlowPane  {
             clear.setOnAction(event1 -> {
                 name.setText("");
                 date_holder.getEditor().clear();
+            });
+
+            back.setOnAction(event1 -> {
+                clearWindow();
+                restart(postLoginAction);
             });
         };
         EventHandler<ActionEvent> event1 = e -> {
@@ -92,15 +98,20 @@ public class LoginPane extends FlowPane  {
                     getChildren().add(label);
                 }
             });
-            getChildren().add(confirm);
-            getChildren().add(user_prompt);
-            getChildren().add(choice);
+
+            back.setOnAction(event2 -> {
+                clearWindow();
+                restart(postLoginAction);
+            });
+            getChildren().addAll(confirm, user_prompt, choice, back);
             user_prompt.setTranslateX(-280);
             user_prompt.setTranslateY(30);
             choice.setTranslateX(115);
             choice.setTranslateY(0);
             confirm.setTranslateX(30);
             confirm.setTranslateY(30);
+            back.setTranslateX(200);
+            back.setTranslateY(0);
 
         };
 
@@ -124,6 +135,7 @@ public class LoginPane extends FlowPane  {
         Button add = new Button("Add");
         Button clear = new Button("Clear");
         Button confirm = new Button("Confirm");
+        Button back = new Button("Back");
         add.setStyle("-fx-background-color: #06f642; ");
         clear.setStyle("-fx-background-color: rgba(205,18,18,0.75); ");
 
@@ -135,7 +147,7 @@ public class LoginPane extends FlowPane  {
             getChildren().addAll(name);
             getChildren().addAll(new Label("Please enter your date of birth:"));
             DatePicker date_holder = new DatePicker();
-            getChildren().addAll(date_holder, add, clear);
+            getChildren().addAll(date_holder, add, clear, back);
             yes.setDisable(true);
             no.setDisable(true);
 
@@ -163,6 +175,11 @@ public class LoginPane extends FlowPane  {
             clear.setOnAction(event1 -> {
                 name.setText("");
                 date_holder.getEditor().clear();
+            });
+
+            back.setOnAction(event1 -> {
+                clearWindow();
+                restart(postLoginAction);
             });
         };
 
@@ -187,15 +204,19 @@ public class LoginPane extends FlowPane  {
                     getChildren().add(label);
                 }
             });
-            getChildren().add(confirm);
-            getChildren().add(user_prompt);
-            getChildren().add(choice);
+            back.setOnAction(event2 -> {
+                clearWindow();
+                restart(postLoginAction);
+            });
+            getChildren().addAll(confirm, user_prompt, choice, back);
             user_prompt.setTranslateX(-280);
             user_prompt.setTranslateY(30);
             choice.setTranslateX(115);
             choice.setTranslateY(0);
             confirm.setTranslateX(30);
             confirm.setTranslateY(30);
+            back.setTranslateX(200);
+            back.setTranslateY(0);
 
         };
 

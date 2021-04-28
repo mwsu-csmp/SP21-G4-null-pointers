@@ -87,7 +87,10 @@ public class CalendarPane extends BorderPane {
                 user.saveSpecial_Days();
                 exit.accept(true);
             } catch (IOException e) {
-                //TODO: add error message
+                final Label label = new Label(e.getMessage());
+                label.setTranslateY(20);
+                label.setTranslateX(30);
+                getChildren().add(label);
             }
         });
 
