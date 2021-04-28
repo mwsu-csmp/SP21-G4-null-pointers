@@ -35,8 +35,6 @@ public class Special_Day {
         this.isprivate = isprivate;
         this.isrecurring = isrecurring;
 
-        if (startdate == null || enddate == null)
-            throw new IllegalArgumentException("One or more dates is not formatted properly");
         if (startdate.isAfter(enddate))
             throw new IllegalArgumentException("Start date is after end date");
     }
@@ -57,6 +55,8 @@ public class Special_Day {
                 throw new IllegalArgumentException("All Day Event boolean incorrectly formatted");
             if (!newfields.get(8).equals("TRUE") && !newfields.get(8).equals("FALSE"))
                 throw new IllegalArgumentException("Private boolean incorrectly formatted");
+            if (!newfields.get(9).equals("TRUE") && !newfields.get(9).equals("FALSE"))
+                throw new IllegalArgumentException("Recurring boolean incorrectly formatted");
 
             title = newfields.get(0);
             startdate = LocalDate.parse(newfields.get(1), DateTimeFormatter.ofPattern("MM/dd/yyyy"));

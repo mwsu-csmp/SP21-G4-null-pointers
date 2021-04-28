@@ -50,6 +50,8 @@ public class CalendarBox extends StackPane {
                     events.getChildren().add(new EventButton(user, special_day));
                 else if (currentday.getDayOfMonth() == special_day.getStartdate().getDayOfMonth() && currentday.getMonthValue() == special_day.getStartdate().getMonthValue() && special_day.isRecurring())
                     events.getChildren().add(new EventButton(user, special_day));
+                else if (currentday.getDayOfYear() == special_day.getStartdate().getDayOfYear())
+                    events.getChildren().add(new EventButton(user, special_day));
             }
             // if event overflow, add to dropdown instead
             else {

@@ -45,16 +45,42 @@ public class Countdown extends StackPane {
         calculate.setOnAction(event -> {
             Long diff = choice.getValue().getStartdate().until(choice2.getValue().getStartdate(), ChronoUnit.DAYS);
             display.setText("There are " + diff + " days between " + choice.getValue() + " and " + choice2.getValue());
+            System.out.println(diff);
         });
 
-        clear.setOnAction(event1 -> {
+        clear.setOnAction(event -> {
             choice.getSelectionModel().clearSelection();
             choice2.getSelectionModel().clearSelection();
             choice.setValue(null);
             choice2.setValue(null);
             display.setText("");
+        });
 
+        choice.setOnAction(event -> {
+            for (Special_Day special_day : user.getSpecial_Days()) {
+                if (special_day.getStartdate().isAfter(choice.getValue().getStartdate()) || special_day.getStartdate().isEqual(choice.getValue().getStartdate())) {
+                    if (!choice2.getItems().contains(special_day))
+                        choice2.getItems().add(special_day);
+                } else {
+                    if (choice2.getValue().equals(special_day))
+                        choice2.setValue(null);
+                    choice2.getItems().remove(special_day);
+                }
+            }
+        });
 
+        choice2.setOnAction(event -> {
+            for (Special_Day special_day : user.getSpecial_Days()) {
+                if (special_day.getStartdate().isBefore(choice2.getValue().getStartdate()) || special_day.getStartdate().isEqual(choice2.getValue().getStartdate())) {
+                    if (!choice.getItems().contains(special_day))
+                        choice.getItems().add(special_day);
+                } else {
+                    if (choice.getValue().equals(special_day))
+                        choice.setValue(null);
+                    choice.getItems().remove(special_day);
+                }
+
+            }
         });
 
         hbox.getChildren().addAll(select, choice, choice2, calculate, clear);
@@ -62,7 +88,5 @@ public class Countdown extends StackPane {
         hbox.setAlignment(Pos.CENTER);
         display.setAlignment(Pos.BOTTOM_CENTER);
         display.setTranslateY(50);
-
     }
 }
-
